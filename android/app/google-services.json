@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "621183436723",
+    "firebase_url": "https://petman-294805.firebaseio.com",
+    "project_id": "petman-294805",
+    "storage_bucket": "petman-294805.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621183436723:android:179583bfc74fcaa146edc6",
+        "android_client_info": {
+          "package_name": "com.petman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621183436723-7020g7994h3n5iuvubag6aiu6js87ba5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.petman",
+            "certificate_hash": "6372e2c97640f2207ef0b5574c75e1cedb8e04e2"
+          }
+        },
+        {
+          "client_id": "621183436723-ii145ae3r1dphqs2vmf368aru57je7e9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhjqOy0iyLrt7IG4ncKNJ6cnDnzj8yV1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "621183436723-ii145ae3r1dphqs2vmf368aru57je7e9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
