@@ -141,7 +141,6 @@ function HomeScreen({ navigation, route }) {
                     <Avatar
                         size={60}
                         rounded
-                        containerStyle={{ elevation: 5, shadowOpacity: 5 }}
                         source={{ uri: SV_RutaImagen }}
                     />
                     <Text style={[Styles.textOpaque, { fontSize: 12, textAlign: "center", width: 80, height: 40, marginTop: 8 }]}>{SV_NombreServicio}</Text>

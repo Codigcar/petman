@@ -41,7 +41,7 @@ const OverlayAddress = ({ userRoot, visible, backdropPress, setAddress }) => {
     return (
         <>
             <Overlay isVisible={visible} onBackdropPress={toggleOverlay} fullScreen={true} overlayStyle={{ padding: 0 }}  >
-                <View style={{ height: Constant.DEVICE.HEIGHT }}>
+                <SafeAreaView style={{ flex: 1 }}>
                     <View style={{ height: 70, backgroundColor: Styles.colors.primary, padding: 10 }}>
                         <View style={{ alignItems: "flex-end" }}>
                             <Pressable
@@ -81,7 +81,7 @@ const OverlayAddress = ({ userRoot, visible, backdropPress, setAddress }) => {
                             </View>
                         </Pressable>
                     </View>
-                </View>
+                </SafeAreaView>
             </Overlay>
         </>
     );

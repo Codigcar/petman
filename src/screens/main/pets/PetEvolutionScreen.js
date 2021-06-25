@@ -110,7 +110,6 @@ function PetEvolutionHomeScreen({ navigation, route }) {
                         <Avatar
                             size={60}
                             rounded
-                            containerStyle={{ elevation: 5, shadowOpacity: 5 }}
                             source={{ uri: item.SV_RutaImagen }}
                         />
                         <View>

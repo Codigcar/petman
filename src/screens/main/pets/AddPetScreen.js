@@ -291,7 +291,11 @@ console.log('raza: ' + race)
                       value={race}
                       style={{
                         inputAndroid: { backgroundColor: 'transparent', width: (Constant.DEVICE.WIDTH / 2) - 30, margin: -1 },
+                        inputIOS: { backgroundColor: 'transparent', top: 10 },
                         iconContainer: { top: 5, right: 30 }
+                      }}
+                      touchableWrapperProps={{
+                        style: { justifyContent: 'center' }
                       }}
                       useNativeAndroidPickerStyle={false}
                       textInputProps={{ underlineColorAndroid: Styles.colors.gris }}

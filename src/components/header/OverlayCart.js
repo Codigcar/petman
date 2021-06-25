@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { memo, useEffect, useState } from 'react';
-import { Alert, FlatList, Image, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, Image, Pressable, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
 import { Avatar, Divider, Icon, Overlay } from 'react-native-elements';
 import { Styles } from '../../assets/css/Styles';
 import Button from '../../components/Button';
@@ -179,6 +179,8 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
         useEffect(() => {
             // console.log('PickUp ' + JSON.stringify(vet));
             const ac = new AbortController();
+            /* Idcliente */
+            /* aqui */
             fetchPOST(Constant.URI.MOBILITY, {
                 "i_ccl_idcliente": userRoot.CCL_IdCliente,
                 "i_vta_idveterinaria": vet.VTA_IdVeterinaria
@@ -256,7 +258,7 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
                                             buttonStyle={{ marginLeft: 10 }}
                                         />
                                         <RadioButtonLabel
-                                            obj={{ label: 'S/.' + obj.PR_MontoTotal.toFixed(2), value: obj }}
+                                            obj={{ label: 'Ss/.' + obj.PR_MontoTotal.toFixed(2), value: obj }}
                                             labelStyle={{ fontSize: 12 }}
                                             index={i}
                                             labelHorizontal={true}
@@ -311,81 +313,83 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
         <>
             <OverlayAddress visible={visibleOverlayAddress} backdropPress={toggleOverlayAddress} userRoot={userRoot} setAddress={setAddressUserRoot} />
             <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ padding: 0 }}  >
-                <FlatList
-                    data={vetPurcharse}
-                    ListHeaderComponent={
-                        <View>
-                            <View style={{ alignItems: "flex-end" }}>
-                                <TouchableOpacity
-                                    activeOpacity={.8}
-                                    style={{ width: 30, height: 30, backgroundColor: Styles.colors.secondary, alignItems: "center", justifyContent: "center" }}
-                                    onPress={toggleOverlay}
-                                >
-                                    <Text style={{ color: Styles.colors.tertiary, fontSize: 13, bottom: 1 }}>x</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginBottom: 10 }}>
-                                <Image
-                                    style={{ width: 25, height: 25, resizeMode: "cover", marginBottom: 10, marginRight: 10 }}
-                                    source={Constant.GLOBAL.IMAGES.ICON_CART}
-                                />
-                                <Text style={[Styles.textBoldOpaque, { fontSize: 16, color: Styles.colors.secondary }]}>Mi canasta</Text>
-                            </View>
-                            <View style={{ margin: 10 }}>
-                                <Text style={[Styles.textBoldOpaque, { fontSize: 14 }]}>Dirección de envío</Text>
-                                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                    <Text style={[Styles.textLightGrey, { fontSize: 12 }]}>{address}</Text>
-                                    <Pressable onPress={toggleOverlayAddress}>
-                                        <Text style={[Styles.textBoldOpaque, { fontSize: 12, color: Styles.colors.cian }]}>CAMBIAR</Text>
-                                    </Pressable>
+                <SafeAreaView style={{ flex: 1 }}>
+                    <FlatList
+                        data={vetPurcharse}
+                        ListHeaderComponent={
+                            <View>
+                                <View style={{ alignItems: "flex-end" }}>
+                                    <TouchableOpacity
+                                        activeOpacity={.8}
+                                        style={{ width: 30, height: 30, backgroundColor: Styles.colors.secondary, alignItems: "center", justifyContent: "center" }}
+                                        onPress={toggleOverlay}
+                                    >
+                                        <Text style={{ color: Styles.colors.tertiary, fontSize: 13, bottom: 1 }}>x</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", marginBottom: 10 }}>
+                                    <Image
+                                        style={{ width: 25, height: 25, resizeMode: "cover", marginBottom: 10, marginRight: 10 }}
+                                        source={Constant.GLOBAL.IMAGES.ICON_CART}
+                                    />
+                                    <Text style={[Styles.textBoldOpaque, { fontSize: 16, color: Styles.colors.secondary }]}>Mi canasta</Text>
+                                </View>
+                                <View style={{ margin: 10 }}>
+                                    <Text style={[Styles.textBoldOpaque, { fontSize: 14 }]}>Dirección de envío</Text>
+                                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                        <Text style={[Styles.textLightGrey, { fontSize: 12 }]}>{address}</Text>
+                                        <Pressable onPress={toggleOverlayAddress}>
+                                            <Text style={[Styles.textBoldOpaque, { fontSize: 12, color: Styles.colors.cian }]}>CAMBIAR</Text>
+                                        </Pressable>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    }
-                    ListFooterComponent={
-                        <View>
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
-                                <Text style={[Styles.textBoldOpaque, { fontSize: 16, color: Styles.colors.secondary }]}>TOTAL</Text>
-                                <Text style={[Styles.textBoldOpaque, { fontSize: 16, color: Styles.colors.secondary }]}>S/{getTotalAmount(ITEMS, MOBILITY).toFixed(2)}</Text>
-                            </View>
-                            <View style={{ flexDirection: "row", margin: 10, backgroundColor: '#F5F5F5' }}>
-                                <Icon name='heart' type='ionicon' size={35} color={'#FF0000'} style={{ margin: 10, marginRight: 15 }} />
-                                <View style={{ justifyContent: "center", width: Constant.DEVICE.WIDTH - 110 }}>
-                                    <Text style={[Styles.fontBlinkerRegular, { fontSize: 13, textAlign: "justify", color: Styles.colors.opaque }]}>El 1% del total de tus compras será donado a fundaciones que ayudan a los animales</Text>
+                        }
+                        ListFooterComponent={
+                            <View>
+                                <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
+                                    <Text style={[Styles.textBoldOpaque, { fontSize: 16, color: Styles.colors.secondary }]}>TOTAL</Text>
+                                    <Text style={[Styles.textBoldOpaque, { fontSize: 16, color: Styles.colors.secondary }]}>S/{getTotalAmount(ITEMS, MOBILITY).toFixed(2)}</Text>
+                                </View>
+                                <View style={{ flexDirection: "row", margin: 10, backgroundColor: '#F5F5F5' }}>
+                                    <Icon name='heart' type='ionicon' size={35} color={'#FF0000'} style={{ margin: 10, marginRight: 15 }} />
+                                    <View style={{ justifyContent: "center", width: Constant.DEVICE.WIDTH - 110 }}>
+                                        <Text style={[Styles.fontBlinkerRegular, { fontSize: 13, textAlign: "justify", color: Styles.colors.opaque }]}>El 1% del total de tus compras será donado a fundaciones que ayudan a los animales</Text>
+                                    </View>
+                                </View>
+                                <View style={{}} >
+                                    <Button
+                                        buttonStyle={[Styles.button.primary, { marginLeft: 10, marginRight: 10 }]}
+                                        title="realizar pago"
+                                        onPress={() => makePayment()}
+                                        loading={loading}
+                                        disabled={userRoot.UB_Direccion == null}
+                                    />
+                                    <Button
+                                        buttonStyle={[Styles.button.secondary, { marginLeft: 10, marginRight: 10 }]}
+                                        title="continuar comprando"
+                                        onPress={toggleOverlay}
+                                    />
                                 </View>
                             </View>
-                            <View style={{}} >
-                                <Button
-                                    buttonStyle={[Styles.button.primary, { marginLeft: 10, marginRight: 10 }]}
-                                    title="realizar pago"
-                                    onPress={() => makePayment()}
-                                    loading={loading}
-                                    disabled={userRoot.UB_Direccion == null}
-                                />
-                                <Button
-                                    buttonStyle={[Styles.button.secondary, { marginLeft: 10, marginRight: 10 }]}
-                                    title="continuar comprando"
-                                    onPress={toggleOverlay}
-                                />
-                            </View>
-                        </View>
-                    }
-                    keyExtractor={(item, index) => item + index}
-                    extraData={ITEMS + MOBILITY}
-                    renderItem={({ item }) =>
-                        <View>
-                            <View style={{ padding: 10 }}>
-                                <Text style={[Styles.textBoldOpaque, { fontSize: 16, textAlign: "center" }]}>{item.VTA_NombreVeterinaria}</Text>
-                                <Divider />
-                            </View>
+                        }
+                        keyExtractor={(item, index) => item + index}
+                        extraData={ITEMS + MOBILITY}
+                        renderItem={({ item }) =>
+                            <View>
+                                <View style={{ padding: 10 }}>
+                                    <Text style={[Styles.textBoldOpaque, { fontSize: 16, textAlign: "center" }]}>{item.VTA_NombreVeterinaria}</Text>
+                                    <Divider />
+                                </View>
 
-                            <View style={{ marginTop: -10 }}>
-                                <ProductDetails items={item.vet_prods} />
-                                <PickUp item={item} />
+                                <View style={{ marginTop: -10 }}>
+                                    <ProductDetails items={item.vet_prods} />
+                                    <PickUp item={item} />
+                                </View>
                             </View>
-                        </View>
-                    }
-                />
+                        }
+                    />
+                </SafeAreaView>
             </Overlay>
         </>
     );

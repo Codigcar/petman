@@ -8,8 +8,8 @@ import { validateAll } from 'indicative/validator';
 import { fetchPOST } from '../../utils/functions';
 
 const LoginScreen = ({ route }) => {
-  const [dni, setdni] = useState('');
-  const [password, setPassword] = useState('');
+  const [dni, setdni] = useState('12312312');
+  const [password, setPassword] = useState('Carlos123');
   const [loading, setLoading] = useState(false);
   const [SignUpErrors, setSignUpErrors] = useState({});
 

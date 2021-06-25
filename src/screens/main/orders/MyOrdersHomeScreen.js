@@ -127,7 +127,7 @@ function HomeScreen({ navigation, route }) {
                                 />
                             </View>
                             <Button
-                                buttonStyle={[Styles.button.primary, { width: 60, height: 20, borderWidth: 1 }]}
+                                buttonStyle={[Styles.button.primary, { width: 60, height: 20, borderWidth: 1, padding: -10 }]}
                                 titleStyle={{ fontSize: 13 }}
                                 title="ver"
                                 onPress={() => {

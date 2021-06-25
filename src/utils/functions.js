@@ -8,9 +8,9 @@ export const fetchPOST = async (url, body, success) => {
             headers: { 'Content-Type': 'application/json' },
             body: body === null ? null : JSON.stringify(body)
         });
-        console.log('json body: ' + url + ' - ' + JSON.stringify(body));
+        // console.log('json body: ' + url + ' - ' + JSON.stringify(body));
         const data = await resp.json();
-        console.log('json response: ' + url + ' - ' + JSON.stringify(data));
+        // console.log('json response: ' + url + ' - ' + JSON.stringify(data));
         await success(data);
         // console.log('TERMINO: ' + url)
     } catch (error) {

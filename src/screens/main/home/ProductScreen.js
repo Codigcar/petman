@@ -106,7 +106,6 @@ export default function ProductScreen({ navigation, route }) {
                     <Avatar
                         size={60}
                         rounded
-                        containerStyle={{ elevation: 5, shadowOpacity: 5 }}
                         source={{ uri: SV_RutaImagen }}
                     />
                     <Text style={[Styles.textOpaque, { fontSize: 12, textAlign: "center", width: 80, height: 40, marginTop: 8 }]}>{SV_NombreServicio}</Text>
@@ -135,7 +134,7 @@ export default function ProductScreen({ navigation, route }) {
     }
 
     const add = (product) => {
-        console.log('ADD: ' + JSON.stringify(VET_BUY) + ' - '+ route.params.veterinary.VTA_IdVeterinaria)
+        console.log('ADD: ' + JSON.stringify(VET_BUY) + ' - ' + route.params.veterinary.VTA_IdVeterinaria)
         if (VET_BUY != null && VET_BUY != route.params.veterinary.VTA_IdVeterinaria) {
             Alert.alert('', 'Hola PetLover!!! Primero debes terminar tu pedido con la Veterinaria actual, luego podrás elegir productos de otra Veterinaria, Muchas Gracias!!!!');
         } else {
@@ -215,7 +214,7 @@ export default function ProductScreen({ navigation, route }) {
                         <Divider style={{ height: 10, backgroundColor: Styles.colors.defaultBackground }} />
                     </View>
                 }
-                style={{ backgroundColor: Styles.colors.background, marginBottom: 125 }}
+                style={{ backgroundColor: Styles.colors.background }}
                 renderItem={({ item, index }) =>
                     <View>
                         <View style={{ flexDirection: "row", height: SIZE, width: Constant.DEVICE.WIDTH, margin: 15, marginBottom: 25 }}>
@@ -243,9 +242,9 @@ export default function ProductScreen({ navigation, route }) {
                                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                                     <Text style={[Styles.textBoldOpaque, { fontSize: 12, color: Styles.colors.secondary }]}>Precio S/ {item.PR_MontoTotal === null ? 0.00 : item.PR_MontoTotal.toFixed(2)}</Text>
                                     <Button
-                                        buttonStyle={[Styles.button.primary, { width: 80, height: 20, borderWidth: 1, marginTop: 0, top: 5 }]}
+                                        buttonStyle={[Styles.button.primary, { width: 80, height: 25, borderWidth: 1, padding: -10 }]}
                                         title="agregar"
-                                        titleStyle={[Styles.textOpaque, { fontSize: 12, color: Styles.colors.black, textAlign: "center" }]}
+                                        titleStyle={[Styles.textOpaque, { fontSize: 12, color: Styles.colors.black }]}
                                         onPress={() => { add(item) }}
                                         disabled={(typeof ITEMS_BUYED[item.VTA_IdVeterinaria + '-' + item.PR_IdProducto + '-' + Constant.GLOBAL.PET.ID] != "undefined" &&
                                             ITEMS_BUYED[item.VTA_IdVeterinaria + '-' + item.PR_IdProducto + '-' + Constant.GLOBAL.PET.ID]['CantidadProducto'] >= item.PR_Stock)}
@@ -258,7 +257,7 @@ export default function ProductScreen({ navigation, route }) {
                 }
             />
 
-            <View style={{ backgroundColor: '#e0e0e0', width: Constant.DEVICE.WIDTH, height: 80, position: 'absolute', justifyContent: "center", top: Constant.DEVICE.HEIGHT - 160 }}>
+            <View style={{ backgroundColor: '#e0e0e0', width: Constant.DEVICE.WIDTH, height: 80, justifyContent: "center" }}>
                 <TouchableOpacity
                     activeOpacity={.8}
                     style={[
