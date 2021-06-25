@@ -47,6 +47,7 @@ export default function AddPetScreen({ navigation, route }) {
         return { label: e['RZ_NombreRaza'], value: e['RZ_IdRaza'], color: e['RZ_Color'] || Styles.colors.gris }
       });
       setRaces(list);
+      setRace(list[0]['value'])
     })
   }, [type]);
 
