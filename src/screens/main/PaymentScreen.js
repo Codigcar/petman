@@ -21,6 +21,7 @@ import { Styles } from '../../assets/css/Styles';
 import Constant from '../../utils/constants';
 import { fetchPOST } from '../../utils/functions';
 import PaymentView from '../../components/payment/PaymentView';
+import { ActivityIndicator } from 'react-native';
 
 export default class PaymentScreen extends React.Component {
 
@@ -29,7 +30,8 @@ export default class PaymentScreen extends React.Component {
         this.state = {
             isPaymentStarted: false,
             signature: '',
-            isPaying: false
+            isPaying: false,
+            isLoading: true
         };
     }
 
@@ -77,7 +79,7 @@ export default class PaymentScreen extends React.Component {
             identifier,
             signature,
             transaction,
-            onSuccess: (response: string) => {
+            onSuccess: (response ) => {
                 const jsonResponse = JSON.parse(response);
                 console.log('PAGO BIEN: ' + JSON.stringify(jsonResponse));
                 // Alert.alert('onSuccess: ' + jsonResponse.message.text);
@@ -97,7 +99,7 @@ export default class PaymentScreen extends React.Component {
                     this.props.navigation.navigate('MyOrdersHomeScreen', { userRoot: this.props.route.params.userRoot });
                 }
             },
-            onFailed: (response: string) => {
+            onFailed: (response) => {
                 const jsonResponse = JSON.parse(response);
                 console.log('PAGO ERRO: ' + JSON.stringify(jsonResponse));
                 Alert.alert('onFailed: ' + jsonResponse.message.text);
@@ -133,9 +135,11 @@ export default class PaymentScreen extends React.Component {
             isPaying: true,
         });
         this.refs.paymentView.pay();
-        this.setState({
-            isPaying: false,
-        });
+        setTimeout(() => {
+            this.setState({
+                isPaying: false,
+            });
+        }, 2000);
     }
 
     getTransaction() {
@@ -190,7 +194,11 @@ export default class PaymentScreen extends React.Component {
         };
     }
 
+    
     render() {
+        setTimeout(() => {
+                this.setState({isLoading:false})
+        }, 2000);
         return (
             <SafeAreaView style={styles.container}>
                 <View>
@@ -201,26 +209,50 @@ export default class PaymentScreen extends React.Component {
                             resizeMode="contain"
                         />
                     </View>
-                    <View style={styles.paymentContainer} >
-                        <PaymentView
-                            ref="paymentView"
-                            themeName="dark"
-                            environmentName="SANDBOX"></PaymentView>
-                    </View>
                     <View>
-                        <TouchableOpacity
-                            activeOpacity={.8}
-                            style={[
-                                Styles.button.primary,
-                                { height: 50, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }
-                            ]}
-                            onPress={() => { this.pay() }}
-                            disabled={this.state.isPaying}
-                        >
-                            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: "center", alignItems: "center" }}>
-                                <Text style={[Styles.textOpaque, { fontSize: 14, color: Styles.colors.black, textAlign: "center" }]}>Pagar S/{this.props.route.params.totalAmount}</Text>
-                            </View>
-                        </TouchableOpacity>
+                        
+                        <View style={styles.paymentContainer} >
+                            
+                            <PaymentView
+                                ref="paymentView"
+                                themeName="dark"
+                                environmentName="SANDBOX"
+                                >
+                            </PaymentView>
+                        </View>
+                        <View>
+                            {
+                                this.state.isLoading ? 
+                                <TouchableOpacity
+                                activeOpacity={.8}
+                                style={[
+                                    Styles.button.primary,
+                                    { height: 50, flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor:Styles.colors.color_background }
+                                ]}
+                                onPress={() => { this.pay() }}
+                                disabled={true}
+                            >
+                                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: "center", alignItems: "center" }}>
+                                       <ActivityIndicator color={Styles.colors.primary} size={40} />
+                                </View>
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity
+                                    activeOpacity={.8}
+                                    style={[
+                                        Styles.button.primary,
+                                        { height: 50, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }
+                                    ]}
+                                    onPress={() => { this.pay() }}
+                                    disabled={this.state.isPaying}
+                                >
+                                    <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: "center", alignItems: "center" }}>
+                                            {/* this.state.isLoading?<ActivityIndicator color='white' size={40} /> */}
+                                            <Text style={[Styles.textOpaque, { fontSize: 14, color: Styles.colors.black, textAlign: "center" }]}>Pagar S/{this.props.route.params.totalAmount}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            }
+                        </View>
                     </View>
                 </View>
             </SafeAreaView>

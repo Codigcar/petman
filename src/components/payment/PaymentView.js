@@ -13,7 +13,6 @@ export default class PaymentView extends Component {
   onFailed: (response: string) => void;
   environmentName: string;
   themeName: string;
-
   identifier: string;
   signature: string;
   onBehalf: string;
