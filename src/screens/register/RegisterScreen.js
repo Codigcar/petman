@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Linking, Text, Pressable, View, Image, ScrollView, ImageBackground, Alert } from 'react-native';
+import { KeyboardAvoidingView, Linking, Text, Pressable, View, Image, ScrollView, ImageBackground, Alert, TouchableOpacity } from 'react-native';
 import { Background, Button, Input } from '../../components';
 import Constant from '../../utils/constants';
 import { Styles } from '../../assets/css/Styles';
@@ -7,6 +7,7 @@ import { AuthContext } from '../../components/authContext';
 import CheckBox from '@react-native-community/checkbox';
 import { validateAll } from 'indicative/validator';
 import { fetchPOST } from '../../utils/functions';
+
 
 const RegisterScreen = ({ navigation, route }) => {
   console.log('RegisterScreen: ' + JSON.stringify(route))
@@ -24,7 +25,7 @@ const RegisterScreen = ({ navigation, route }) => {
 
   const [acceptTerms, setAcceptTerms] = useState(false);
 
-  const { signUpPet } = useContext(AuthContext);
+  const { signUpPet, signIn } = useContext(AuthContext);
 
   useEffect(() => {
     fetchPOST(Constant.URI.PRIVACITY_POLICIES, {}, function (response) {
@@ -200,6 +201,10 @@ const RegisterScreen = ({ navigation, route }) => {
                     title="siguiente"
                     onPress={() => handleSignUp()}
                   />
+                  
+                  <TouchableOpacity onPress={() => signIn()}>
+                    <Text style={[Styles.textOpaque, { textAlign: 'center', fontSize: 14, marginBottom: 15 }]} >Iniciar sesión</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
 
