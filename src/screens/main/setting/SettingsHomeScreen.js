@@ -20,6 +20,7 @@ import Constant from '../../../utils/constants';
 import { Button, HeaderBackLeft, HeaderRight, Divider, InputText } from '../../../components';
 import { fetchPOST } from '../../../utils/functions';
 import { DataScreen, ContactScreen } from './';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const DATA = [
   {
@@ -48,6 +49,13 @@ const DATA = [
 
 export default function SettingsHomeScreen({ navigation, route }) {
 
+  // const getToken2 = async() => {
+  //   const usuario = await AsyncStorage.getItem('usuario');
+  //   const password = await AsyncStorage.getItem('password');
+  //   console.log('password: ',password);
+  //   console.log('usuario: ',usuario);
+
+  // }
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false
