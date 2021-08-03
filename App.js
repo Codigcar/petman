@@ -281,7 +281,7 @@ export default App = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Styles.colors.background }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Styles.colors.primary }}>
       <AuthContext.Provider value={authContextValue}>
         <NavigationContainer theme={MyTheme}>
           <Stack.Navigator>{chooseScreen(state)}</Stack.Navigator>
