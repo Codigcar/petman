@@ -16,6 +16,7 @@ export default class PaymentView extends Component {
   identifier: string;
   signature: string;
   onBehalf: string;
+  updateIsLoading: () => void;
 
   constructor(props) {
     super(props);
@@ -23,6 +24,8 @@ export default class PaymentView extends Component {
     this.themeName = props.themeName;
     this.onSuccess = (response: string) => { };
     this.onFailed = (response: string) => { };
+
+    this.updateIsLoading = props.updateIsLoading;
   }
 
   startPayment(options: {
@@ -31,6 +34,7 @@ export default class PaymentView extends Component {
     transaction: string,
     onSuccess: (response: string) => void,
     onFailed: (response: string) => void,
+    updateIsLoading: () => void;
   }) {
     this.identifier = options.identifier;
     this.signature = options.signature;
@@ -103,10 +107,13 @@ export default class PaymentView extends Component {
         ref="synapPayView"
         style={[{ flex: 1, width: '100%', height: '100%' }]}
         onCreateCompleted={() => {
+          console.log('Colocar tarjeta completado');
           this._onCreateEnd();
         }}
         onConfigureCompleted={() => {
           this._onConfigureEnd();
+          this.updateIsLoading();
+
         }}
         onPaySuccess={(event: Event) => {
           this._onPaySuccess(event);

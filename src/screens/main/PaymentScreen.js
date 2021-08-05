@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import React, { useRef, useEffect, useLayoutEffect } from 'react';
 import { Icon } from 'react-native-elements';
-import { Divider, Carousel, Button, HeaderBackLeft, HeaderRight, RadioForm, RadioButtonInput, RadioButtonLabel } from '../../components';
+import { Divider, Carousel, Button, HeaderBackLeft, HeaderRight, RadioForm, RadioButtonInput, RadioButtonLabel, Loading } from '../../components';
 import { Styles } from '../../assets/css/Styles';
 import Constant from '../../utils/constants';
 import { fetchPOST } from '../../utils/functions';
@@ -31,10 +31,11 @@ export default class PaymentScreen extends React.Component {
             isPaymentStarted: false,
             signature: '',
             isPaying: false,
-            isLoading: true
+            isLoading: true,
         };
     }
 
+  
     componentDidMount() {
         this.props.navigation.setOptions({
             title: 'Pago',
@@ -142,6 +143,9 @@ export default class PaymentScreen extends React.Component {
         }, 2000);
     }
 
+    
+
+
     getTransaction() {
         const number = `${Date.now()}`;
         const customer = {
@@ -196,11 +200,14 @@ export default class PaymentScreen extends React.Component {
 
     
     render() {
-        setTimeout(() => {
-                this.setState({isLoading:false})
-        }, 2000);
+        const updateIsLoading = () => {
+            console.log('-------------------------------------------updateIsLoading');
+            this.setState({isLoading:false,});
+        }
+    
         return (
             <SafeAreaView style={styles.container}>
+              <Loading visible={this.state.isLoading} overlayColor={Styles.colors.background} />
                 <View>
                     <View style={{ alignItems: "center", marginTop: 10 }}>
                         <Image
@@ -214,6 +221,7 @@ export default class PaymentScreen extends React.Component {
                         <View style={styles.paymentContainer} >
                             
                             <PaymentView
+                                updateIsLoading={updateIsLoading}
                                 ref="paymentView"
                                 themeName="dark"
                                 environmentName="SANDBOX"
@@ -221,7 +229,7 @@ export default class PaymentScreen extends React.Component {
                             </PaymentView>
                         </View>
                         <View>
-                            {
+                        {
                                 this.state.isLoading ? 
                                 <TouchableOpacity
                                 activeOpacity={.8}
@@ -247,11 +255,10 @@ export default class PaymentScreen extends React.Component {
                                     disabled={this.state.isPaying}
                                 >
                                     <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: "center", alignItems: "center" }}>
-                                            {/* this.state.isLoading?<ActivityIndicator color='white' size={40} /> */}
                                             <Text style={[Styles.textOpaque, { fontSize: 14, color: Styles.colors.black, textAlign: "center" }]}>Pagar S/{this.props.route.params.totalAmount}</Text>
                                     </View>
                                 </TouchableOpacity>
-                            }
+                        }
                         </View>
                     </View>
                 </View>
