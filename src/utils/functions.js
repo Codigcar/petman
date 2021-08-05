@@ -93,7 +93,8 @@ export const removeToCart = (item, itemsBuyed, callback) => {
         try {
             await AsyncStorage.setItem('@ITEMS_BUYED', JSON.stringify(itemsBuyed));
             if (count <= 0) {
-                await AsyncStorage.clear();
+                await AsyncStorage.removeItem('@ITEMS_BUYED');
+                // await AsyncStorage.clear();
                 callback();
             }
         } catch (error) {

@@ -52,6 +52,7 @@ export default function PetProfileScreen({ navigation, route }) {
             });
             setRace('');
             setRaces(list);
+            // setRace(list[0]['value']);
         })
     }, [type]);
 

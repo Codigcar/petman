@@ -258,7 +258,7 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
                                             buttonStyle={{ marginLeft: 10 }}
                                         />
                                         <RadioButtonLabel
-                                            obj={{ label: 'Ss/.' + obj.PR_MontoTotal.toFixed(2), value: obj }}
+                                            obj={{ label: 'S/.' + obj.PR_MontoTotal.toFixed(2), value: obj }}
                                             labelStyle={{ fontSize: 12 }}
                                             index={i}
                                             labelHorizontal={true}
