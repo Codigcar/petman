@@ -50,7 +50,7 @@ export default function PetProfileScreen({ navigation, route }) {
             const list = response.Data.map((e) => {
                 return { label: e['RZ_NombreRaza'], value: e['RZ_IdRaza'], color: e['RZ_Color'] || Styles.colors.black }
             });
-            setRace('');
+            // setRace('');
             setRaces(list);
             // setRace(list[0]['value']);
         })

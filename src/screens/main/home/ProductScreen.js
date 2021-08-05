@@ -28,12 +28,14 @@ export default function ProductScreen({ navigation, route }) {
         let _itemsBuyed = await AsyncStorage.getItem('@ITEMS_BUYED');
 
         console.log("LEYENDO EL STORAGE")
-        console.log(JSON.stringify(_itemsBuyed))
+        console.log('@ITEMS_BUYED: ', JSON.stringify(_itemsBuyed))
         if (_itemsBuyed != null) {
             ITEMS_BUYED = JSON.parse(_itemsBuyed);
             VET_BUY = await AsyncStorage.getItem('@VET_BUY');
+            console.log('@VET_BUY: ', VET_BUY)
         } else {
             ITEMS_BUYED = {};
+            VET_BUY = null;
         }
     };
 
