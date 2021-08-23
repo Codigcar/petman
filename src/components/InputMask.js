@@ -86,6 +86,12 @@ const styles = StyleSheet.create({
                 shadowOpacity: 1,
                 shadowRadius: 1,
             },
+            ios: {
+                shadowColor: Styles.colors.opaque,
+                shadowOffset: { height: 0, width: 0 },
+                shadowOpacity: 0,
+                shadowRadius: 1,
+            },
         }),
     },
     inputErrorContainer: {
