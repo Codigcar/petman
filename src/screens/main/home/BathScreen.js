@@ -14,13 +14,13 @@ import {
     FlatList,
     SafeAreaView
 } from 'react-native';
-import { Icon, Input, Rating, AirbnbRating, SearchBar } from 'react-native-elements';
+import { Icon, Input, Rating, AirbnbRating, SearchBar, Avatar } from 'react-native-elements';
 import 'react-native-gesture-handler';
 import { Styles } from '../../../assets/css/Styles';
 import Constant from '../../../utils/constants';
 import { fetchPOST } from '../../../utils/functions';
 import _ from "lodash";
-import { Divider, Carousel, Button, HeaderLeft, HeaderRight, RadioForm, RadioButtonInput, RadioButtonLabel } from '../../../components';
+import { Divider, Carousel, Button, HeaderLeft, HeaderRight, RadioForm, RadioButtonInput, RadioButtonLabel, HeaderBackLeft } from '../../../components';
 
 let SIZE = 105;
 
@@ -37,6 +37,10 @@ export default function BathScreen({ navigation, route }) {
             headerTitleStyle: Styles.headerTitleStyle,
             headerTitleAlign: 'center',
             headerBackTitleVisible: false,
+            headerLeft: () => (
+                <HeaderBackLeft navigation={navigation} >
+                </HeaderBackLeft>
+            ),
             headerRight: () => (
                 <HeaderRight navigation={navigation} userRoot={route.params.userRoot} />
             ),
