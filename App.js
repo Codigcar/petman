@@ -20,6 +20,8 @@ import { localNotificationService } from './src/components/notifications/LocalNo
 import { fetchPOST } from './src/utils/functions';
 import Constant from './src/utils/functions';
 import { getDataUser } from './src/screens/login/LoginScreen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View } from 'react-native';
 
 
 
@@ -280,13 +282,14 @@ export default App = ({ navigation }) => {
     },
   };
 
+  // const insets = useSafeAreaInsets();
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Styles.colors.primary }}>
+    // <SafeAreaView  style={{ flex: 1, backgroundColor: Styles.colors.primary }} edges={['right', 'bottom', 'left']} >
       <AuthContext.Provider value={authContextValue}>
         <NavigationContainer theme={MyTheme}>
           <Stack.Navigator>{chooseScreen(state)}</Stack.Navigator>
         </NavigationContainer>
       </AuthContext.Provider>
-    </SafeAreaView>
+    // </SafeAreaView>
   );
 };
