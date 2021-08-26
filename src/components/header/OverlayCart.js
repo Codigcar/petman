@@ -311,7 +311,7 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
 
     return (
         <>
-            {/* <OverlayAddress visible={visibleOverlayAddress} backdropPress={toggleOverlayAddress} userRoot={userRoot} setAddress={setAddressUserRoot} /> */}
+            <OverlayAddress visible={visibleOverlayAddress} backdropPress={toggleOverlayAddress} userRoot={userRoot} setAddress={setAddressUserRoot} />
             <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ padding: 0, marginVertical: Constant.DEVICE.WIDTH*0.16, borderRadius:10, marginHorizontal:10 }}  >
                 <SafeAreaView style={{ flex: 1, marginVertical:0 }}>
                     <FlatList
