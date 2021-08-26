@@ -311,9 +311,9 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
 
     return (
         <>
-            <OverlayAddress visible={visibleOverlayAddress} backdropPress={toggleOverlayAddress} userRoot={userRoot} setAddress={setAddressUserRoot} />
-            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ padding: 0 }}  >
-                <SafeAreaView style={{ flex: 1 }}>
+            {/* <OverlayAddress visible={visibleOverlayAddress} backdropPress={toggleOverlayAddress} userRoot={userRoot} setAddress={setAddressUserRoot} /> */}
+            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ padding: 0, marginVertical: Constant.DEVICE.WIDTH*0.16, borderRadius:10, marginHorizontal:10 }}  >
+                <SafeAreaView style={{ flex: 1, marginVertical:0 }}>
                     <FlatList
                         data={vetPurcharse}
                         ListHeaderComponent={
@@ -321,7 +321,7 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
                                 <View style={{ alignItems: "flex-end" }}>
                                     <TouchableOpacity
                                         activeOpacity={.8}
-                                        style={{ width: 30, height: 30, backgroundColor: Styles.colors.secondary, alignItems: "center", justifyContent: "center" }}
+                                        style={{ borderTopRightRadius:10,width: 30, height: 30, backgroundColor: Styles.colors.secondary, alignItems: "center", justifyContent: "center" }}
                                         onPress={toggleOverlay}
                                     >
                                         <Text style={{ color: Styles.colors.tertiary, fontSize: 13, bottom: 1 }}>x</Text>
