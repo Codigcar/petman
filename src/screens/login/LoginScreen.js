@@ -122,7 +122,7 @@ const LoginScreen = ({ route }) => {
         imageStyle={{ width: Constant.DEVICE.WIDTH, height: 180 }}
       >
         <ScrollView>
-          <View style={{ height: 270,  marginTop:30 }}>
+          <View style={{ height: 270,  marginTop:40 }}>
             <View style={{ height: 90 }}>
               <Image
                 style={{ width: Constant.DEVICE.WIDTH, height: 50, justifyContent: "center", margin: 10 }}
