@@ -109,7 +109,6 @@ const LoginScreen = ({ route }) => {
         });
         setSignUpErrors(formatError);
       });
-
   };
 
   return (  
@@ -120,10 +119,10 @@ const LoginScreen = ({ route }) => {
         source={Constant.GLOBAL.IMAGES.BACKGROUND}
         resizeMode="cover"
         style={{ width: Constant.DEVICE.WIDTH, height: Constant.DEVICE.HEIGHT }}
-        imageStyle={{ width: Constant.DEVICE.WIDTH, height: 150 }}
+        imageStyle={{ width: Constant.DEVICE.WIDTH, height: 180 }}
       >
         <ScrollView>
-          <View style={{ height: 270 }}>
+          <View style={{ height: 270,  marginTop:30 }}>
             <View style={{ height: 90 }}>
               <Image
                 style={{ width: Constant.DEVICE.WIDTH, height: 50, justifyContent: "center", margin: 10 }}

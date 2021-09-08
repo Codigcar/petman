@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useContext, useEffect, useMemo, useReducer } from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
 import 'react-native-gesture-handler';
 import { AuthContext } from './src/components/authContext';
 import {
@@ -45,13 +45,13 @@ const createLoginStack = () => {
   return (
     <Stack.Screen name="Login" component={LoginScreen}
       initialParams={{ deviceToken: DEVICE_TOKEN }} options={{
-      // initialParams={{ deviceToken: 'holaaa' }} options={{
-      headerShown: false,
-      // transitionSpec: {
-      //   open: config,
-      //   close: config,
-      // }
-    }} />
+        // initialParams={{ deviceToken: 'holaaa' }} options={{
+        headerShown: false,
+        // transitionSpec: {
+        //   open: config,
+        //   close: config,
+        // }
+      }} />
   )
 };
 
@@ -67,63 +67,63 @@ export default App = ({ navigation }) => {
     const bootstrapAsync = async () => {
       // const usuario = await AsyncStorage.getItem('usuario');
       // const password = await AsyncStorage.getItem('password'); 
-        // const { signIn } = useContext(AuthContext);
+      // const { signIn } = useContext(AuthContext);
 
-        /* if(!usuario && !password){
-        }  */
-        setTimeout(() => {
-          dispatch({ type: 'RESTORE_TOKEN' });
-        }, 2000);
-        
-        
-        /*   fetchPOST(constants.URI.LOGIN, {
-          "i_usu_usuario": '12312312',
-          "i_usu_contrasena": 'Carlos123',
-          "i_usu_devicetoken": 'hola'
-          }, function (response) {
-            if (response.CodigoMensaje == 100) {
-              const _storeData = async () => {
-                try {
-                  console.log('data traida: ', response.Data[0]);
-                  dispatch({ type: 'SIGN_IN', userRoot: response.Data[0] });
-                } catch (error) {
-                  console.error('Error: ' + error);
-                }
-              };
-              _storeData();
-            } else {
-              Alert.alert('', response.RespuestaMensaje);
-            }
-          }) */
+      /* if(!usuario && !password){
+      }  */
+      setTimeout(() => {
+        dispatch({ type: 'RESTORE_TOKEN' });
+      }, 2000);
 
-         /*  setTimeout(() => {
-          fetchPOST('http://desarrollo2.laprotectora.com.pe:8090/veterinaria/Operations/UsuarioLoguear', {
-            "i_usu_usuario": '12312312',
-            "i_usu_contrasena": 'Carlos123',
-            "i_usu_devicetoken": 'hola'
-            }, function (response) {
-            if (response.CodigoMensaje == 100) {
-                const _storeData = async () => {
-                try {
-                  dispatch({ type: 'SIGN_IN', userRoot: response.Data[0] });
-                  // signIn({ data: response.Data[0] });
-                } catch (error) {
-                    console.error('Error: ' + error);
-                }
-                };
-                _storeData();
-            } else {
-                Alert.alert('', response.RespuestaMensaje);
-            }
-            })
 
-      }, 2000); */
+      /*   fetchPOST(constants.URI.LOGIN, {
+        "i_usu_usuario": '12312312',
+        "i_usu_contrasena": 'Carlos123',
+        "i_usu_devicetoken": 'hola'
+        }, function (response) {
+          if (response.CodigoMensaje == 100) {
+            const _storeData = async () => {
+              try {
+                console.log('data traida: ', response.Data[0]);
+                dispatch({ type: 'SIGN_IN', userRoot: response.Data[0] });
+              } catch (error) {
+                console.error('Error: ' + error);
+              }
+            };
+            _storeData();
+          } else {
+            Alert.alert('', response.RespuestaMensaje);
+          }
+        }) */
+
+      /*  setTimeout(() => {
+       fetchPOST('http://desarrollo2.laprotectora.com.pe:8090/veterinaria/Operations/UsuarioLoguear', {
+         "i_usu_usuario": '12312312',
+         "i_usu_contrasena": 'Carlos123',
+         "i_usu_devicetoken": 'hola'
+         }, function (response) {
+         if (response.CodigoMensaje == 100) {
+             const _storeData = async () => {
+             try {
+               dispatch({ type: 'SIGN_IN', userRoot: response.Data[0] });
+               // signIn({ data: response.Data[0] });
+             } catch (error) {
+                 console.error('Error: ' + error);
+             }
+             };
+             _storeData();
+         } else {
+             Alert.alert('', response.RespuestaMensaje);
+         }
+         })
+
+   }, 2000); */
 
       // setTimeout(() => {
-        // dispatch({ type: 'RESTORE_TOKEN' })
-        // const data = getDataUser();
-        // dispatch({ type: 'SIGN_IN', userRoot: {"CCL_ApeMaterno": "Test", "CCL_ApePaterno": "Prueba", "CCL_Celular": "946199591", "CCL_Documento": "12312312", "CCL_Email": "carlos.castilla009@gmail.com", "CCL_IdCliente": 1019, "CCL_Nombre": "Carlos", "CodigoMensaje": 100, "PF_IdPerfil": 2, "PF_NombrePerfil": "USUARIO", "RespuestaMensaje": "Encontro usuario", "SE_NombreCortoSexo": null, "SE_NombreSexo": null, "TAR_IdTarjeta": null, "TAR_NroTarjeta": null, "TAR_Token": null, "UB_Direccion": "Avenida El Sol", "USU_Contrasena": "Carlos123", "USU_Estado": 1, "USU_IdUsuario": 1018, "USU_Usuario": "12312312", "VTA_IdVeterinaria": null, "VTA_Nombre": null} });
-        
+      // dispatch({ type: 'RESTORE_TOKEN' })
+      // const data = getDataUser();
+      // dispatch({ type: 'SIGN_IN', userRoot: {"CCL_ApeMaterno": "Test", "CCL_ApePaterno": "Prueba", "CCL_Celular": "946199591", "CCL_Documento": "12312312", "CCL_Email": "carlos.castilla009@gmail.com", "CCL_IdCliente": 1019, "CCL_Nombre": "Carlos", "CodigoMensaje": 100, "PF_IdPerfil": 2, "PF_NombrePerfil": "USUARIO", "RespuestaMensaje": "Encontro usuario", "SE_NombreCortoSexo": null, "SE_NombreSexo": null, "TAR_IdTarjeta": null, "TAR_NroTarjeta": null, "TAR_Token": null, "UB_Direccion": "Avenida El Sol", "USU_Contrasena": "Carlos123", "USU_Estado": 1, "USU_IdUsuario": 1018, "USU_Usuario": "12312312", "VTA_IdVeterinaria": null, "VTA_Nombre": null} });
+
       // }, 2000);
     };
 
@@ -174,8 +174,8 @@ export default App = ({ navigation }) => {
           // console.log('data: ', data);
           // console.log('data: ', data.data.CCL_Documento);
           // console.log('data: ', data.data);
-          await AsyncStorage.setItem('dniStorage',data.data.USU_Usuario);
-          await AsyncStorage.setItem('passwordStorage',data.data.USU_Contrasena);
+          await AsyncStorage.setItem('dniStorage', data.data.USU_Usuario);
+          await AsyncStorage.setItem('passwordStorage', data.data.USU_Contrasena);
         } else {
           dispatch({ type: 'TO_SIGNIN_PAGE' });
         }
@@ -183,7 +183,7 @@ export default App = ({ navigation }) => {
       signOut: async (data) => {
         dispatch({ type: 'SIGN_OUT' });
         await AsyncStorage.clear(); //TODO: Verificar ya que borra la canasta que esta en memoria
-        
+
         // await AsyncStorage.setItem('usuario','');
         // await AsyncStorage.setItem('password','');
 
@@ -250,12 +250,12 @@ export default App = ({ navigation }) => {
       case 'LOAD_SIGNIN':
         // arr.push(createLoginStack());
         arr.push(
-          <Stack.Screen 
-            name="Login" 
+          <Stack.Screen
+            name="Login"
             component={LoginScreen}
-            initialParams={{ deviceToken: DEVICE_TOKEN }} 
-            options={{headerShown: false}} 
-            />
+            initialParams={{ deviceToken: DEVICE_TOKEN }}
+            options={{ headerShown: false }}
+          />
         );
         break;
       case 'LOAD_APP':
@@ -278,18 +278,22 @@ export default App = ({ navigation }) => {
     colors: {
       ...DefaultTheme.colors,
       primary: Styles.colors.primary,
-      backgroundColor: Styles.colors.background
+      backgroundColor: Styles.colors.background,
+
     },
   };
 
   // const insets = useSafeAreaInsets();
   return (
-    // <SafeAreaView  style={{ flex: 1, backgroundColor: Styles.colors.primary }} edges={['right', 'bottom', 'left']} >
+    // <SafeAreaView  style={{ flex: 1, backgroundColor: Styles.colors.primary }}  >
+    <>
+      <StatusBar barStyle="dark-content" />
       <AuthContext.Provider value={authContextValue}>
         <NavigationContainer theme={MyTheme}>
           <Stack.Navigator>{chooseScreen(state)}</Stack.Navigator>
         </NavigationContainer>
       </AuthContext.Provider>
+    </>
     // </SafeAreaView>
   );
 };
