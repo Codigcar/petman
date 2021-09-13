@@ -177,12 +177,12 @@ function HomeScreen({ navigation, route }) {
             ListHeaderComponent={
                 <View>
                     <View>
-                        <View style={{ height: 60, margin: 5, marginTop: 15, marginBottom: 0 }}>
+                        <View style={{ height: 60, margin: 5, marginTop: 15, marginBottom: 0, paddingBottom: 0}}>
                             <Input
                                 placeholder='Buscar veterinaria'
-                                leftIcon={{ type: 'ionicon', name: 'search-outline', color: Styles.colors.gris, style: { padding: 10 } }}
-                                inputContainerStyle={{ borderWidth: 1, borderColor: Styles.colors.gris, borderRadius: 10 }}
-                                inputStyle={Styles.textOpaque}
+                                leftIcon={{ type: 'ionicon', name: 'search-outline', color: Styles.colors.gris, style: { paddingHorizontal:10}, size:20 }}
+                                inputContainerStyle={{ borderWidth: 1, borderColor: Styles.colors.gris, borderRadius: 10, padding:0 }}
+                                inputStyle={[Styles.textOpaque, {fontSize:16, padding:0, margin:0}]}
                                 errorStyle={{ height: 0 }}
                                 onChangeText={setValue}
                                 // autoCorrect={false}
