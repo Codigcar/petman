@@ -39,6 +39,11 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
         }
     });
 
+    useEffect(() => {
+        console.log('OverlayCart Address: ' + address + ' - ' + userRoot.UB_Direccion);
+        setAddress(userRoot.UB_Direccion);
+    }, [userRoot.UB_Direccion]);
+
     const getTotalAmount = (itemsBuyed, mobility) => {
         let amount = 0;
         Object.keys(itemsBuyed).map((key) => {
@@ -300,20 +305,21 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
     }
 
     const toggleOverlayAddress = () => {
-        console.log('presionado')
+        console.log('Cambiar estado toggleOverlayAddress')
         setVisibleOverlayAddress(!visibleOverlayAddress);
     }
 
     const setAddressUserRoot = (prop) => {
+        console.log('userRoot.CCL_IdCliente: ' + JSON.stringify(userRoot.CCL_IdCliente))
+        console.log('prop: ' + JSON.stringify(prop))
         userRoot.UB_Direccion = prop;
         setAddress(prop);
     }
 
     return (
         <>
-            <OverlayAddress visible={visibleOverlayAddress} backdropPress={toggleOverlayAddress} userRoot={userRoot} setAddress={setAddressUserRoot} />
-            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ padding: 0, marginVertical: Constant.DEVICE.WIDTH*0.16, borderRadius:10, marginHorizontal:10 }}  >
-                <SafeAreaView style={{ flex: 1, marginVertical:0 }}>
+            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ padding: 0, marginVertical: Constant.DEVICE.WIDTH * 0.16, borderRadius: 10, marginHorizontal: 10 }}  >
+                <SafeAreaView style={{ flex: 1, marginVertical: 0 }}>
                     <FlatList
                         data={vetPurcharse}
                         ListHeaderComponent={
@@ -321,7 +327,7 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
                                 <View style={{ alignItems: "flex-end" }}>
                                     <TouchableOpacity
                                         activeOpacity={.8}
-                                        style={{ borderTopRightRadius:10,width: 30, height: 30, backgroundColor: Styles.colors.secondary, alignItems: "center", justifyContent: "center" }}
+                                        style={{ borderTopRightRadius: 10, width: 30, height: 30, backgroundColor: Styles.colors.secondary, alignItems: "center", justifyContent: "center" }}
                                         onPress={toggleOverlay}
                                     >
                                         <Text style={{ color: Styles.colors.tertiary, fontSize: 13, bottom: 1 }}>x</Text>
@@ -339,7 +345,12 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
                                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                         <Text style={[Styles.textLightGrey, { fontSize: 12 }]}>{address}</Text>
                                         <Pressable onPress={toggleOverlayAddress}>
-                                            <Text style={[Styles.textBoldOpaque, { fontSize: 12, color: Styles.colors.cian }]}>CAMBIAR</Text>
+                                            <View>
+                                                <View>
+                                                    <Text style={[Styles.textBoldOpaque, { fontSize: 12, color: Styles.colors.cian }]}>CAMBIAR</Text>
+                                                </View>
+                                                <OverlayAddress visible={visibleOverlayAddress} backdropPress={toggleOverlayAddress} userRoot={userRoot} setAddress={setAddress} />
+                                            </View>
                                         </Pressable>
                                     </View>
                                 </View>
@@ -391,6 +402,7 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
                     />
                 </SafeAreaView>
             </Overlay>
+
         </>
     );
 };

@@ -4,25 +4,29 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		5ubNFiPLh+EBbxucUjUdqZjypE4=
+		</data>
 		<key>Assets.car</key>
 		<data>
-		7WN2URsOCUquh3xZ5/RXirxdit4=
+		BrFV0OMXgyYQ1e/qxfc6aJwBd2A=
 		</data>
 		<key>BankInstructionView.nib</key>
 		<data>
-		E/kJG/3A2zN70Swy7bt9XCyVJLg=
+		+pHTh+hZ4hlbXTrm+WGLBrIplr8=
 		</data>
 		<key>CardCarouselView.nib</key>
 		<data>
-		TItw0QPMTVwycYJP8y3C0LFo1hk=
+		jv/tlt8X7H1pdFxIFl+/lIAxbsI=
 		</data>
 		<key>CardFormView.nib</key>
 		<data>
-		3oDMyDdnvMlS2ejPTk8DZFjUM24=
+		0o46Edb8JDcxZbVIYMwmTFoeKOE=
 		</data>
 		<key>Headers/SynapPay-Swift.h</key>
 		<data>
-		6Duo6xfO1z8hrX6aQ1/e01GEEN4=
+		Fg9RbRSR36AvPbwsLC8Ia1IGeac=
 		</data>
 		<key>Headers/payment_button_ios.h</key>
 		<data>
@@ -30,39 +34,35 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		OQiyf5kj6ilHDrZmzp0MmUaVfB4=
+		3s+O7GKkSPNakeRBanwLgeL7hFk=
+		</data>
+		<key>Modules/.DS_Store</key>
+		<data>
+		kZy8riNB0goIR8KwQmbyt4kbD8c=
 		</data>
 		<key>Modules/SynapPay.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		40nE77jErL+S8/C8naNr2famrV4=
+		RwBPGuso0vZJcXle9CNyYK+EX3U=
 		</data>
 		<key>Modules/SynapPay.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<data>
-		40nE77jErL+S8/C8naNr2famrV4=
+		RwBPGuso0vZJcXle9CNyYK+EX3U=
 		</data>
 		<key>Modules/SynapPay.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		Hd83//AurSRfVAIuStRbsViSjuE=
-		</data>
-		<key>Modules/SynapPay.swiftmodule/arm64-apple-ios.swiftinterface</key>
-		<data>
-		1sivQ5fk891paMBkdu2GVR4dYjI=
+		YMWjAbx/9qKLQIYe6XOEcuvKndU=
 		</data>
 		<key>Modules/SynapPay.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		vioeGvmEPSYqlAsnTnwJzU1uY/o=
+		6yybNHIyJX6gTjc2pl4ML16aK/s=
 		</data>
 		<key>Modules/SynapPay.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		Hd83//AurSRfVAIuStRbsViSjuE=
-		</data>
-		<key>Modules/SynapPay.swiftmodule/arm64.swiftinterface</key>
-		<data>
-		1sivQ5fk891paMBkdu2GVR4dYjI=
+		YMWjAbx/9qKLQIYe6XOEcuvKndU=
 		</data>
 		<key>Modules/SynapPay.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		vioeGvmEPSYqlAsnTnwJzU1uY/o=
+		6yybNHIyJX6gTjc2pl4ML16aK/s=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -75,35 +75,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bnBKQlOuoWwpMuA66U25feqj7tR5JzrxmTOgZK2wGlM=
+			NBRmJI+2rEbbDpNkC3n3C/0JyTP6H8iN8H8VSWQSVHg=
 			</data>
 		</dict>
 		<key>BankInstructionView.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			H7bm0Ma6jFpCbWVYVRe7TIY/MzeOhuyn48FZXkO9Eys=
+			DGjifMzeJazBsz44LQl61mcDycboZw2TxiJG0+WUoOI=
 			</data>
 		</dict>
 		<key>CardCarouselView.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			oQUBmNW8LIEIVwxCXchNKsPPGhIlW7J2wV4CqW0Q7XE=
+			0EA14WcvfNw0IC2ub46FzjRfhlRR6Ufs23iTniv4BB4=
 			</data>
 		</dict>
 		<key>CardFormView.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8tMv4vllTz02HvuKJ3sp6g8PtD0/5sJff0/dbyHMcXY=
+			60Q9q8UjdP7h/mrPcKdgAGDDODD9w9LzpJFjhzcjwys=
 			</data>
 		</dict>
 		<key>Headers/SynapPay-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			tYHhCooi8ZgxPjxXu2QDPIUwwLJfZxq4jXbPU2Gw2UM=
+			/oEIS6lZqcinyvCpdqBM5O4DqZ2ZyUFhTpCB+WAavOQ=
 			</data>
 		</dict>
 		<key>Headers/payment_button_ios.h</key>
@@ -117,56 +117,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			FOOSiudG58lcqxIkFa1HkN7oXpssNuijeM/5BboOrFM=
+			mrVIIbZn9fyW0mINu10XOjlOUxHGydo3W8iayO3ZJxc=
 			</data>
 		</dict>
 		<key>Modules/SynapPay.swiftmodule/Project/arm64.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FOOSiudG58lcqxIkFa1HkN7oXpssNuijeM/5BboOrFM=
+			mrVIIbZn9fyW0mINu10XOjlOUxHGydo3W8iayO3ZJxc=
 			</data>
 		</dict>
 		<key>Modules/SynapPay.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mGzPoEg3c45DduNFiRjbeMM+p2D9I7odiS4gNAJjA68=
-			</data>
-		</dict>
-		<key>Modules/SynapPay.swiftmodule/arm64-apple-ios.swiftinterface</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			+CH3bkMhH5oo1wr5K5LQnjtXA2+iFqOXH50OAgxnEhM=
+			pRTjUho6JZhCN4jJGGmVSUZTM/30xcWIKHPRUg8deX4=
 			</data>
 		</dict>
 		<key>Modules/SynapPay.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/rufpptFwZHWf1fnoX81918Fsn1kV5WElI63T56nI+0=
+			zx/bXxs0c7NV0PhHrIA1hYUo6CLqlk1jn0KxiTYd7As=
 			</data>
 		</dict>
 		<key>Modules/SynapPay.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mGzPoEg3c45DduNFiRjbeMM+p2D9I7odiS4gNAJjA68=
-			</data>
-		</dict>
-		<key>Modules/SynapPay.swiftmodule/arm64.swiftinterface</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			+CH3bkMhH5oo1wr5K5LQnjtXA2+iFqOXH50OAgxnEhM=
+			pRTjUho6JZhCN4jJGGmVSUZTM/30xcWIKHPRUg8deX4=
 			</data>
 		</dict>
 		<key>Modules/SynapPay.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/rufpptFwZHWf1fnoX81918Fsn1kV5WElI63T56nI+0=
+			zx/bXxs0c7NV0PhHrIA1hYUo6CLqlk1jn0KxiTYd7As=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

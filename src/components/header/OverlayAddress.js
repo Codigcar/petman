@@ -77,6 +77,7 @@ const OverlayAddress = ({ userRoot, visible, backdropPress, setAddress }) => {
                                 let obj = input;
                                 obj.i_ccl_idcliente = userRoot.CCL_IdCliente;
                                 console.log('OBJ: ' + JSON.stringify(obj))
+                                console.log('userRoot.CCL_IdCliente: ' + JSON.stringify(userRoot.CCL_IdCliente))
                                 fetchPOST(Constant.URI.USER_ADDRESS_UPDATE, obj, function (response) {
                                     toggleOverlay();
                                     userRoot.UB_Direccion = obj.I_UB_Direccion;
