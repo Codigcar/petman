@@ -7,7 +7,6 @@ import { AuthContext } from '../../components/authContext';
 import CheckBox from '@react-native-community/checkbox';
 import { validateAll } from 'indicative/validator';
 import { fetchPOST } from '../../utils/functions';
-import { Platform } from 'react-native';
 
 
 const RegisterScreen = ({ navigation, route }) => {
@@ -184,9 +183,7 @@ const RegisterScreen = ({ navigation, route }) => {
                     value={acceptTerms}
                     onValueChange={(newValue) => setAcceptTerms(newValue)}
                   />
-                  {
-                    Platform.OS ? <Text style={[Styles.textOpaque, { fontSize: 14, marginLeft:12 }]}>He leído y acepto la </Text> : <Text style={[Styles.textOpaque, { fontSize: 14 }]}>He leído y acepto la </Text>
-                  }
+                  <Text style={[Styles.textOpaque, { fontSize: 14 }]}>He leído y acepto la </Text>
                   <Pressable
                     onPress={() => {
                       Linking.openURL(policies).then().catch(() => {
@@ -206,9 +203,7 @@ const RegisterScreen = ({ navigation, route }) => {
                   />
                   
                   <TouchableOpacity onPress={() => signIn()}>
-                    {
-                      Platform.OS ? <Text style={[Styles.textOpaque, { textAlign: 'center', fontSize: 14, marginBottom: 45 }]} >Iniciar sesión</Text> : <Text style={[Styles.textOpaque, { textAlign: 'center', fontSize: 14, marginBottom: 15 }]} >Iniciar sesión</Text>
-                    }
+                    <Text style={[Styles.textOpaque, { textAlign: 'center', fontSize: 14, marginBottom: 15 }]} >Iniciar sesión</Text>
                   </TouchableOpacity>
                 </View>
               </View>

@@ -28,7 +28,7 @@ export default function MyOrderDetailScreen({ navigation, route, userRoot }) {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            title: 'Detalle del pedido',
+            title: 'Detalle del pedidoe',
             headerStyle: Styles.headerBarStyle,
             headerTitleStyle: Styles.headerTitleStyle,
             headerTitleAlign: 'center',
