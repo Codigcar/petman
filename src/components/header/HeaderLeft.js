@@ -22,19 +22,21 @@ import OverlayAddress from './OverlayAddress';
 
 let SIZE = 35;
 
-const HeaderLeft = ({ navigation, userRoot }) => {
+const HeaderLeft = ({ navigation, userRoot, setUpdateAddress }) => {
     const [visible, setVisible] = useState(false);
     const [input, setInput] = useState();
     const [address, setAddress] = useState(userRoot.UB_Direccion);
 
     useEffect(() => {
+        console.log('-------------');
         console.log('header: '+ address + ' - ' + userRoot.UB_Direccion);
         setAddress(userRoot.UB_Direccion);
-    }, [userRoot.UB_Direccion]);
+    },);
 
 
     const toggleOverlay = () => {
         setVisible(!visible);
+        setUpdateAddress(!visible);
     }
 
     const getCoordsFromName = (obj) => {
@@ -64,11 +66,11 @@ const HeaderLeft = ({ navigation, userRoot }) => {
                         <Text style={{ color: Styles.colors.black, fontFamily: Styles.fontAldrichRegular, fontSize: 10, marginRight: 1 }}>{address != null ? address : 'Ingresa tu dirección'}</Text>
                         <Icon name='menu-down' type='material-community' size={20} />
                     </View>
-                    <OverlayAddress visible={visible} backdropPress={toggleOverlay} userRoot={userRoot} setAddress={setAddress} />
+                    <OverlayAddress visible={visible} backdropPress={toggleOverlay} userRoot={userRoot} setAddress={setAddress} setUpdateAddress={setUpdateAddress} />
                 </View>
             </Pressable>
         </View>
     );
 };
 
-export default memo(HeaderLeft);
+export default (HeaderLeft);

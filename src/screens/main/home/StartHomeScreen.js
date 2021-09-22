@@ -30,6 +30,8 @@ export default function StartHomeScreen({ navigation, route }) {
     // console.log('StartHomeScreen: ' + JSON.stringify(navigation) + ' || ' + JSON.stringify(route))
     // console.log('PET: ' + Constant.GLOBAL.PET.ID)
 
+    const [updateAddress, setUpdateAddress] = useState(false);
+
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: false
@@ -51,10 +53,10 @@ export default function StartHomeScreen({ navigation, route }) {
                             headerTitle: null,
                             headerStyle: Styles.headerBarStyle,
                             headerLeft: () => (
-                                <HeaderLeft navigation={navigation} userRoot={route.params.userRoot} />
+                                <HeaderLeft navigation={navigation} userRoot={route.params.userRoot} setUpdateAddress={setUpdateAddress} />
                             ),
                             headerRight: () => (
-                                <HeaderRight navigation={navigation} userRoot={route.params.userRoot} />
+                                <HeaderRight navigation={navigation} userRoot={route.params.userRoot}  setUpdateAddress={setUpdateAddress} />
                             ),
                         }}
                     />

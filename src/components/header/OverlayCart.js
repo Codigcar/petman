@@ -29,6 +29,10 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
         setVetPurcharse(list);
     };
 
+    // useEffect(() => {
+    //     setVisibleOverlayAddress(true);
+    // }, )
+
     useEffect(() => {
         if (vetPurcharse.length <= 0 && visible) {
             console.log('IAIAIAIAIA: ' + vetPurcharse.length + "- " + visible)
@@ -38,6 +42,12 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
             }
         }
     });
+
+    useEffect(() => {
+        console.log('OverCart-header: ' + address + ' - ' + userRoot.UB_Direccion);
+        setAddress(userRoot.UB_Direccion);
+    },);
+
 
     const getTotalAmount = (itemsBuyed, mobility) => {
         let amount = 0;
@@ -296,32 +306,35 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
     const toggleOverlay = () => {
         setVetPurcharse([]);
         backdropPress();
-        setLoading(false);
+        setLoading(true);
     }
 
     const toggleOverlayAddress = () => {
         console.log('presionado')
         setVisibleOverlayAddress(!visibleOverlayAddress);
+        console.log('fin presionado')
     }
 
     const setAddressUserRoot = (prop) => {
+        console.log('setAddressUserRoot');
         userRoot.UB_Direccion = prop;
         setAddress(prop);
     }
 
     return (
-        <>
-            <OverlayAddress visible={visibleOverlayAddress} backdropPress={toggleOverlayAddress} userRoot={userRoot} setAddress={setAddressUserRoot} />
-            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ padding: 0, marginVertical: Constant.DEVICE.WIDTH*0.16, borderRadius:10, marginHorizontal:10 }}  >
-                <SafeAreaView style={{ flex: 1, marginVertical:0 }}>
-                    <FlatList
+
+        <View>
+            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={{ padding: 0, marginVertical: Constant.DEVICE.WIDTH * 0.16, borderRadius: 10, marginHorizontal: 10 }}  >
+            <OverlayAddress visible={/* visibleOverlayAddress */ visibleOverlayAddress} backdropPress={toggleOverlayAddress} userRoot={userRoot} setAddressUserRoot={setAddressUserRoot} />
+
+                <FlatList
                         data={vetPurcharse}
                         ListHeaderComponent={
                             <View>
                                 <View style={{ alignItems: "flex-end" }}>
                                     <TouchableOpacity
                                         activeOpacity={.8}
-                                        style={{ borderTopRightRadius:10,width: 30, height: 30, backgroundColor: Styles.colors.secondary, alignItems: "center", justifyContent: "center" }}
+                                        style={{ borderTopRightRadius: 10, width: 30, height: 30, backgroundColor: Styles.colors.secondary, alignItems: "center", justifyContent: "center" }}
                                         onPress={toggleOverlay}
                                     >
                                         <Text style={{ color: Styles.colors.tertiary, fontSize: 13, bottom: 1 }}>x</Text>
@@ -337,9 +350,14 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
                                 <View style={{ margin: 10 }}>
                                     <Text style={[Styles.textBoldOpaque, { fontSize: 14 }]}>Dirección de envío</Text>
                                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                        <Text style={[Styles.textLightGrey, { fontSize: 12 }]}>{address}</Text>
+                                        <Text style={[Styles.textLightGrey, { fontSize: 32 }]}>{address}</Text>
                                         <Pressable onPress={toggleOverlayAddress}>
-                                            <Text style={[Styles.textBoldOpaque, { fontSize: 12, color: Styles.colors.cian }]}>CAMBIAR</Text>
+                                            <View>
+                                                <View>
+                                                    <Text style={[Styles.textBoldOpaque, { fontSize: 12, color: Styles.colors.cian }]}>CAMBIAR</Text>
+                                                </View>
+                                                {/* rere */}
+                                            </View>
                                         </Pressable>
                                     </View>
                                 </View>
@@ -389,9 +407,12 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
                             </View>
                         }
                     />
-                </SafeAreaView>
             </Overlay>
-        </>
+        </View>
+
+
+
+
     );
 };
 

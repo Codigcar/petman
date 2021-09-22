@@ -24,11 +24,15 @@ const OverlayAddress = ({ userRoot, visible, backdropPress, setAddress }) => {
     const [input, setInput] = useState();
     const [apiKey, setApiKey] = useState();
 
-  useEffect(() => {
-      fetchPOST(Constant.URI.GOOGLE_MAP_API_KEY, { }, function (response) {
-        setApiKey(response.Data[0].ApiKeyGoogle);
-      })
-  }, []);
+    useEffect(() => {
+        fetchPOST(Constant.URI.GOOGLE_MAP_API_KEY, {}, function (response) {
+            setApiKey(response.Data[0].ApiKeyGoogle);
+        })
+    }, []);
+
+    useEffect(() => {
+        // console.log('userRoot.CCL_IdCliente: ', userRoot.CCL_IdCliente);
+    }, [])
 
     const getCoordsFromName = (obj) => {
         console.log('getCoordsFromName: ' + JSON.stringify(obj))
@@ -41,9 +45,9 @@ const OverlayAddress = ({ userRoot, visible, backdropPress, setAddress }) => {
 
     return (
         <>
-            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} fullScreen={false} overlayStyle={{ padding: 0, width:Constant.DEVICE.WIDTH*0.95, height:Constant.DEVICE.HEIGHT*0.85,borderRadius:10 }}  >
-                <SafeAreaView style={{ flex: 1, marginVertical:0}}>
-                    <View style={{ height: 70, backgroundColor: Styles.colors.primary, padding: 10, borderTopEndRadius:10, borderTopStartRadius:10 }}>
+            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} fullScreen={false} overlayStyle={{ padding: 0, width: Constant.DEVICE.WIDTH * 0.95, height: Constant.DEVICE.HEIGHT * 0.85, borderRadius: 10 }}  >
+                <SafeAreaView style={{ flex: 1, marginVertical: 0 }}>
+                    <View style={{ height: 70, backgroundColor: Styles.colors.primary, padding: 10, borderTopEndRadius: 10, borderTopStartRadius: 10 }}>
                         <View style={{ alignItems: "flex-end" }}>
                             <Pressable
                                 style={{ width: 30, height: 30, alignItems: "center", justifyContent: "center", borderWidth: 1 }}
@@ -56,24 +60,25 @@ const OverlayAddress = ({ userRoot, visible, backdropPress, setAddress }) => {
                             <Text style={[Styles.textBoldOpaque, { fontSize: 16, color: Styles.colors.black }]}>Cambiar de dirección</Text>
                         </View>
                     </View>
-                    <View style={{/* backgroundColor:'red', */position:'absolute',top:100, left: 0, right: 0, bottom: 100, justifyContent: "center", alignItems: "center", /* backgroundColor:'red' */}}>
-                        <Text style={{/* backgroundColor:'green' */}}>
-                            <Icon name='map-outline' type='ionicon' size={60} color={Styles.colors.gris } style={{/* backgroundColor:'blue' */}} />
+                    <View style={{/* backgroundColor:'red', */position: 'absolute', top: 100, left: 0, right: 0, bottom: 100, justifyContent: "center", alignItems: "center", /* backgroundColor:'red' */ }}>
+                        <Text style={{/* backgroundColor:'green' */ }}>
+                            <Icon name='map-outline' type='ionicon' size={60} color={Styles.colors.gris} style={{/* backgroundColor:'blue' */ }} />
                         </Text>
-                        <Text style={{color:Styles.colors.gris}}>Reaiza tu busqueda...</Text>
+                        <Text style={{ color: Styles.colors.gris }}>Reaiza tu busqueda...</Text>
                     </View>
 
                     <MapPlaceSearch notifyChange={(loc) => getCoordsFromName(loc)} apiKey={apiKey} />
 
-                    
 
-                    <View style={{ width: Constant.DEVICE.WIDTH, height: 80, position:'absolute',justifyContent: "center", top: Constant.DEVICE.HEIGHT - Constant.DEVICE.HEIGHT*0.3, padding: 20, paddingRight:40 }}>
+
+                    <View style={{ width: Constant.DEVICE.WIDTH, height: 80, position: 'absolute', justifyContent: "center", top: Constant.DEVICE.HEIGHT - Constant.DEVICE.HEIGHT * 0.3, padding: 20, paddingRight: 40 }}>
                         <Pressable
                             style={[
-                                Styles.button.primary, 
+                                Styles.button.primary,
                                 { height: 50, flexDirection: "row", justifyContent: "space-between", alignItems: "center"/* , paddingLeft: 20, paddingRight: 20, margin: 20 */ }
                             ]}
                             onPress={() => {
+                                console.log('userRoot.CCL_IdCliente: ', userRoot.CCL_IdCliente);
                                 let obj = input;
                                 obj.i_ccl_idcliente = userRoot.CCL_IdCliente;
                                 console.log('OBJ: ' + JSON.stringify(obj))
