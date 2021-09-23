@@ -63,11 +63,11 @@ const OverlayAddress = ({ userRoot, visible, backdropPress, setAddress }) => {
                     </View>
                     {
                         userRoot.UB_Direccion == null ?
-                            (<View style={{ backgroundColor: 'red', position: 'absolute', top: 100, left: 0, right: 0, bottom: 100, justifyContent: "center", alignItems: "center" }}>
-                                <Text style={{ backgroundColor: 'green' }}>
-                                    <Icon name='map-outline' type='ionicon' size={60} color={Styles.colors.gris} style={{ backgroundColor: 'blue' }} />
+                            (<View style={{ /* backgroundColor: 'red', */ position: 'absolute', top: 100, left: 0, right: 0, bottom: 100, justifyContent: "center", alignItems: "center" }}>
+                                <Text style={{ /* backgroundColor: 'green'  */}}>
+                                    <Icon name='map-outline' type='ionicon' size={60} color={Styles.colors.gris} style={{ /* backgroundColor: 'blue'  */}} />
                                 </Text>
-                                <Text style={{ color: Styles.colors.gris }}>Realiza tu busqueda...</Text>
+                                <Text style={{ color: Styles.colors.gris }}>Encuentra tu ubicación...</Text>
                             </View>
                             ) : (
                                 <View style={{ /* backgroundColor: 'red',  */position: 'absolute', top: 170, left: 0, right: 0, bottom: 100, flexDirection: 'row' /* , justifyContent: "center", alignItems: "center" */ }}>
