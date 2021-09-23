@@ -350,7 +350,7 @@ const OverlayCart = ({ visible, backdropPress, userRoot, successPayment, navigat
                                 <View style={{ margin: 10 }}>
                                     <Text style={[Styles.textBoldOpaque, { fontSize: 14 }]}>Dirección de envío</Text>
                                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                        <Text style={[Styles.textLightGrey, { fontSize: 32 }]}>{address}</Text>
+                                        <Text style={[Styles.textLightGrey, { fontSize: 12 }]}>{address}</Text>
                                         <Pressable onPress={toggleOverlayAddress}>
                                             <View>
                                                 <View>

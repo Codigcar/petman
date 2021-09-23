@@ -181,7 +181,7 @@ export default function ProductScreen({ navigation, route }) {
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginLeft: 80, marginRight: 20 }}>
                     {renderRating(5, 15, parseInt(route.params.veterinary.VTA_Ranking))}
                     <View style={{ flexDirection: "row" }}>
-                        <Icon name='clock-time-three-outline' type='material-community' size={15} color={Styles.colors.opaque} style={{ marginRight: 5, marginLeft: 0 }} />
+                        <Icon name='clock-time-three-outline' type='material-community' size={15} color={Styles.colors.opaque} style={{ marginRight: 5, marginLeft: 10 }} />
                         <Text style={[Styles.textLightGrey, { fontSize: 14 }]}>{route.params.veterinary.VTA_Horario}</Text>
                     </View>
                     <View style={{ flexDirection: "row" }}>

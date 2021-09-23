@@ -87,6 +87,7 @@ const LoginScreen = ({ route }) => {
           if (response.CodigoMensaje == 100) {
             const _storeData = async () => {
               try {
+                console.log('Login data: ',response.Data[0]);
                 signIn({ data: response.Data[0] });
                 console.log(response.Data[0]);
                 // await AsyncStorage.setItem('usuario',response.Data[0].USU)
