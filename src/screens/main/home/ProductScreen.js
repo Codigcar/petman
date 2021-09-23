@@ -210,6 +210,7 @@ export default function ProductScreen({ navigation, route }) {
                                     enableMomentum={false}
                                     enableSnap={true}
                                     slideStyle={{ alignItems: "center" }}
+                                    removeClippedSubviews = {false}
                                 />
                             </View>
                         </View>

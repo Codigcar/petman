@@ -103,4 +103,4 @@ const HeaderRight = ({ navigation, userRoot, hideCount, setUpdateAddress }) => {
     );
 };
 
-export default memo(HeaderRight);
+export default (HeaderRight);

@@ -101,7 +101,7 @@ export default function BathScreen({ navigation, route }) {
                             <TouchableOpacity
                                 activeOpacity={.8}
                                 onPress={() => {
-                                    console.log(item);
+                                    console.log('BathScreen item:  ',item);
                                     navigation.navigate('ProductScreen', { userRoot: route.params.userRoot, veterinary: item });
                                 }}
                             >

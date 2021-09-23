@@ -28,7 +28,6 @@ const HeaderLeft = ({ navigation, userRoot, setUpdateAddress }) => {
     const [address, setAddress] = useState(userRoot.UB_Direccion);
 
     useEffect(() => {
-        console.log('-------------');
         console.log('header: '+ address + ' - ' + userRoot.UB_Direccion);
         setAddress(userRoot.UB_Direccion);
     },);
@@ -66,7 +65,7 @@ const HeaderLeft = ({ navigation, userRoot, setUpdateAddress }) => {
                         <Text style={{ color: Styles.colors.black, fontFamily: Styles.fontAldrichRegular, fontSize: 10, marginRight: 1 }}>{address != null ? address : 'Ingresa tu dirección'}</Text>
                         <Icon name='menu-down' type='material-community' size={20} />
                     </View>
-                    <OverlayAddress visible={visible} backdropPress={toggleOverlay} userRoot={userRoot} setAddress={setAddress} setUpdateAddress={setUpdateAddress} />
+                    <OverlayAddress visible={visible} backdropPress={toggleOverlay} userRoot={userRoot} setAddress={setAddress}  />
                 </View>
             </Pressable>
         </View>

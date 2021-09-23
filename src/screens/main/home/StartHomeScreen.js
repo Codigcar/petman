@@ -129,17 +129,20 @@ function HomeScreen({ navigation, route }) {
     );
 
     const renderCarouselItem = ({ item, index }) => {
+        // console.log('SV_NombreServicio: ', item.SV_NombreServicio);
+        // console.log('SV_IdServicio: ', item.SV_IdServicio);
         const { SV_IdServicio, SV_NombreServicio, SV_RutaImagen } = item;
         return (
             <TouchableOpacity
-                activeOpacity={.8}
-                style={{ height: 120, width: 80, alignItems: "center", justifyContent: "center" }}
+                // activeOpacity={.8}
+                style={{ height: 120, width: 80, alignItems: "center", justifyContent: "center"}}
                 onPress={() => {
-                    console.log(item[index]);
+                    console.log('item presionado carousel: ',item[index]);
+                    console.log('SV_NombreServicio: ',SV_NombreServicio);
                     navigation.navigate('BathScreen', { userRoot: route.params.userRoot, SV_IdServicio, SV_NombreServicio });
                 }}
             >
-                <View style={{ height: 100, width: 80, alignItems: "center" }}>
+                <View style={{ height: 100, width: 80, alignItems: "center"}}>
                     <Avatar
                         size={60}
                         rounded
@@ -203,6 +206,7 @@ function HomeScreen({ navigation, route }) {
                                 enableMomentum={false}
                                 enableSnap={true}
                                 slideStyle={{ alignItems: "center" }}
+                                removeClippedSubviews = {false}
                             />
                         </View>
                         <Divider style={{ height: 10, backgroundColor: Styles.colors.defaultBackground }} />
