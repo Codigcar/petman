@@ -31,7 +31,7 @@ const LoginScreen = ({ route }) => {
       fetchPOST(Constant.URI.LOGIN, {
         "i_usu_usuario": dniStorage,
         "i_usu_contrasena": passwordStorage,
-        "i_usu_devicetoken": 'token'
+        "i_usu_devicetoken": route.params.deviceToken
       }, function (response) {
         if (response.CodigoMensaje == 100) {
           console.log('data', response.Data[0]);
