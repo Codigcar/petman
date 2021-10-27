@@ -19,6 +19,7 @@ import { StartHomeScreen, PetsHomeScreen, ConnectHomeScreen, MyOrdersHomeScreen,
 import { Styles } from '../../assets/css/Styles';
 import Constant from '../../utils/constants';
 import { fetchPOST } from '../../utils/functions';
+import StartHomeAdminScreen from '../admi/StartHomeAdminScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -42,6 +43,10 @@ export default function TabScreen({ navigation, route }) {
       <Stack.Screen
         name="ProductScreen"
         component={ProductScreen}
+      />
+      <Stack.Screen
+        name="StartHomeAdminScreen"
+        component={StartHomeAdminScreen}
       />
       <Stack.Screen
         name="BathScreen"

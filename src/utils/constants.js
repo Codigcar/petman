@@ -162,6 +162,9 @@ export default {
         PET_EVOLUTION_GET: WS_URL + '/Operations/MascotaEvolucionObtener',
         PET_EVOLUTION_PERCENTAGE: WS_URL + '/Operations/MascotaEvolucionPorcentaje',
         GOOGLE_MAP_API_KEY: WS_URL + '/Operations/Acceso_Obtener_Google',
-        PAYMENT_KEY: WS_URL + '/Operations/Acceso_Obtener_Tarjeta'
+        PAYMENT_KEY: WS_URL + '/Operations/Acceso_Obtener_Tarjeta',
+        VENTA_OBTENER_PEDIDO: WS_URL + '/Operations/Venta_Obtener_Pedido',
+        ESTADO_PEDIDO_LISTAR: WS_URL + '/Operations/Estado_Pedido_Listar',
+        VENTA_ACTUALIZAR_ESTADO: WS_URL + '/Operations/Venta_Actualizar_Estado',
     }
 }

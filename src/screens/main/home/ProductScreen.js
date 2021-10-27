@@ -210,14 +210,14 @@ export default function ProductScreen({ navigation, route }) {
                                     enableMomentum={false}
                                     enableSnap={true}
                                     slideStyle={{ alignItems: "center" }}
-                                    removeClippedSubviews = {false}
+                                    removeClippedSubviews={false}
                                 />
                             </View>
                         </View>
                         <Divider style={{ height: 10, backgroundColor: Styles.colors.defaultBackground }} />
                     </View>
                 }
-                style={{ backgroundColor: Styles.colors.background }}
+                style={{ backgroundColor: /* Styles.colors.background */ 'green' }}
                 renderItem={({ item, index }) =>
                     <View>
                         <View style={{ flexDirection: "row", height: SIZE, width: Constant.DEVICE.WIDTH, margin: 15, marginBottom: 25 }}>
@@ -259,7 +259,7 @@ export default function ProductScreen({ navigation, route }) {
                     </View>
                 }
             />
-
+            {/* boton abajo */}
             <View style={{ backgroundColor: '#e0e0e0', width: Constant.DEVICE.WIDTH, height: 80, justifyContent: "center" }}>
                 <TouchableOpacity
                     activeOpacity={.8}

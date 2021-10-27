@@ -102,7 +102,8 @@ export default function BathScreen({ navigation, route }) {
                                 activeOpacity={.8}
                                 onPress={() => {
                                     console.log('BathScreen item:  ',item);
-                                    navigation.navigate('ProductScreen', { userRoot: route.params.userRoot, veterinary: item });
+                                    // navigation.navigate('ProductScreen', { userRoot: route.params.userRoot, veterinary: item });
+                                    navigation.navigate('StartHomeAdminScreen', { userRoot: route.params.userRoot, veterinary: item });
                                 }}
                             >
                                 <View style={{ flexDirection: "row" }}>
