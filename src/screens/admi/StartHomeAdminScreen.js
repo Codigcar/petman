@@ -65,20 +65,23 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                     </View>
                 </HeaderBackLeft>
             ), */
-            /* headerRight: () => (
+            headerRight: () => (
+                <View>
+                    <Text>asdasdasd</Text>
+                </View>
                 // <HeaderRight navigation={navigation} userRoot={route.params.userRoot} hideCount={true} />
-                <HeaderBackLeft navigation={navigation} >
-                    <View style={{ position: "absolute", left: 10, top: 45 }}>
-                        <Avatar
-                            size={60}
-                            rounded
-                            source={{ uri: route.params.veterinary.VTA_NombreFoto }}
-                            overlayContainerStyle={styles.image_vet}
-                        />
-                    </View>
-                </HeaderBackLeft>
-                
-            ) */
+                /* <HeaderBackLeft navigation={navigation} >
+                     <View style={{ position: "absolute", left: 10, top: 45 }}>
+                         <Avatar
+                             size={60}
+                             rounded
+                             source={{ uri: route.params.veterinary.VTA_NombreFoto }}
+                             overlayContainerStyle={styles.image_vet}
+                         />
+                     </View>
+                 </HeaderBackLeft> */
+
+            )
         });
     }, [navigation]);
 
