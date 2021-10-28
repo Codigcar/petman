@@ -18,6 +18,7 @@ import { Icon } from 'react-native-elements';
 import { StartHomeScreen, PetsHomeScreen, ConnectHomeScreen, MyOrdersHomeScreen, BathScreen, ProductScreen, PaymentScreen, SettingsHomeScreen } from '../main';
 import { Styles } from '../../assets/css/Styles';
 import Constant from '../../utils/constants';
+import { Button, HeaderLeft, HeaderRight, Divider, InputText } from '../../components';
 import { fetchPOST } from '../../utils/functions';
 import StartHomeAdminScreen from '../admi/StartHomeAdminScreen';
 
@@ -27,7 +28,7 @@ const sizeBottomIcon = 30;
 
 export default function TabScreen({ navigation, route }) {
 
-  const [isVeterinary, setIsVeterinary] = useState(false);
+  // const [isVeterinary, setIsVeterinary] = useState(false);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -36,19 +37,26 @@ export default function TabScreen({ navigation, route }) {
     console.log('TabScreenTabScreen: ', route);
   }, [navigation]);
 
-  useEffect(() => {
-   if(route.params.userRoot.PF_IdPerfil === 1 ){
-     setIsVeterinary(true);
-   }
-  }, [])
+/*   useEffect(() => {
+    if(route.params.userRoot.PF_IdPerfil === 1 ){
+      setIsVeterinary(true);
+    }
+  }, []) */
 
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="HomeScreen"
-        component={isVeterinary ? StartHomeAdminScreen : HomeScreen}
-        initialParams={isVeterinary ? { userRoot: route.params.userRoot, veterinary: 3 } : { userRoot: route.params.userRoot }}
-      />
+        component={route.params.userRoot.PF_IdPerfil === 1 ? StartHomeAdminScreen : HomeScreen}
+        initialParams={route.params.userRoot.PF_IdPerfil === 1 ? { userRoot: route.params.userRoot, veterinary: route.params.userRoot.CCL_IdCliente } : { userRoot: route.params.userRoot }}
+        options={{
+          headerTitle: null,
+          headerStyle: Styles.headerBarStyle,
+          headerLeft: () => (
+            <HeaderLeft navigation={navigation} userRoot={route.params.userRoot} setUpdateAddress={false} />
+          ),
+
+        }} />
       <Stack.Screen
         name="ProductScreen"
         component={ProductScreen}

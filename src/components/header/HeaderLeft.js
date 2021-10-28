@@ -28,9 +28,9 @@ const HeaderLeft = ({ navigation, userRoot, setUpdateAddress }) => {
     const [address, setAddress] = useState(userRoot.UB_Direccion);
 
     useEffect(() => {
-        console.log('header: '+ address + ' - ' + userRoot.UB_Direccion);
+        console.log('header: ' + address + ' - ' + userRoot.UB_Direccion);
         setAddress(userRoot.UB_Direccion);
-    },);
+    });
 
 
     const toggleOverlay = () => {
@@ -41,6 +41,24 @@ const HeaderLeft = ({ navigation, userRoot, setUpdateAddress }) => {
     const getCoordsFromName = (obj) => {
         console.log('getCoordsFromName: ' + JSON.stringify(obj))
         setInput(obj)
+    }
+
+    const addressView = () => {
+        return (
+            <Pressable
+                style={{ justifyContent: "center" }}
+                onPress={toggleOverlay}
+            >
+                <View>
+                    <Text style={{ color: 'black', fontFamily: Styles.fontAldrichRegular, fontSize: 15, fontWeight: "bold" }}>Hola {userRoot.CCL_Nombre != null ? userRoot.CCL_Nombre.split(" ")[0] : ""}</Text>
+                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                        <Text style={{ color: Styles.colors.black, fontFamily: Styles.fontAldrichRegular, fontSize: 10, marginRight: 1 }}>{address != null ? address : 'Ingresa tu dirección'}</Text>
+                        <Icon name='menu-down' type='material-community' size={20} />
+                    </View>
+                    <OverlayAddress visible={visible} backdropPress={toggleOverlay} userRoot={userRoot} setAddress={setAddress} />
+                </View>
+            </Pressable>
+        )
     }
 
     return (
@@ -55,19 +73,38 @@ const HeaderLeft = ({ navigation, userRoot, setUpdateAddress }) => {
                     />
                 </Pressable>
             </View>
-            <Pressable
-                style={{ justifyContent: "center" }}
-                onPress={toggleOverlay}
-            >
-                <View>
-                    <Text style={{ color: 'black', fontFamily: Styles.fontAldrichRegular, fontSize: 15, fontWeight: "bold" }}>Hola {userRoot.CCL_Nombre != null ? userRoot.CCL_Nombre.split(" ")[0] : ""}</Text>
-                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                        <Text style={{ color: Styles.colors.black, fontFamily: Styles.fontAldrichRegular, fontSize: 10, marginRight: 1 }}>{address != null ? address : 'Ingresa tu dirección'}</Text>
-                        <Icon name='menu-down' type='material-community' size={20} />
-                    </View>
-                    <OverlayAddress visible={visible} backdropPress={toggleOverlay} userRoot={userRoot} setAddress={setAddress}  />
-                </View>
-            </Pressable>
+            {
+                userRoot.PF_IdPerfil == 2 ?
+                    (
+                        <Pressable
+                            style={{ justifyContent: "center" }}
+                            onPress={toggleOverlay}
+                        >
+                            <View>
+                                <Text style={{ color: 'black', fontFamily: Styles.fontAldrichRegular, fontSize: 15, fontWeight: "bold" }}>Hola {userRoot.CCL_Nombre != null ? userRoot.CCL_Nombre.split(" ")[0] : ""}</Text>
+                                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                                    <Text style={{ color: Styles.colors.black, fontFamily: Styles.fontAldrichRegular, fontSize: 10, marginRight: 1 }}>{address != null ? address : 'Ingresa tu dirección'}</Text>
+                                    <Icon name='menu-down' type='material-community' size={20} />
+                                </View>
+                                <OverlayAddress visible={visible} backdropPress={toggleOverlay} userRoot={userRoot} setAddress={setAddress} />
+                            </View>
+                        </Pressable>
+                    )
+                    :
+                    (
+                        <Pressable
+                            style={{ justifyContent: "center" }}
+                            onPress={() => { }}
+                        >
+                            <View>
+                                <Text style={{ color: 'black', fontFamily: Styles.fontAldrichRegular, fontSize: 15, fontWeight: "bold" }}>Hola {userRoot.CCL_Nombre != null ? userRoot.CCL_Nombre.split(" ")[0] : ""}</Text>
+                                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                                </View>
+                                <OverlayAddress visible={visible} backdropPress={toggleOverlay} userRoot={userRoot} setAddress={setAddress} />
+                            </View>
+                        </Pressable>
+                    )
+            }
         </View>
     );
 };

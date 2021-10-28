@@ -4,7 +4,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Platform, TouchableHighlight, ScrollView, Pressable } from 'react-native';
 import { Avatar, Icon, Overlay } from 'react-native-elements';
 import 'react-native-gesture-handler';
-import { Button, Divider, DropDownPicker, HeaderBackLeft, HeaderRight } from '../../components';
+import { Button, Divider, DropDownPicker, HeaderBackLeft, HeaderLeft, HeaderRight } from '../../components';
 import OverlayCart from '../../components/header/OverlayCart';
 import Carousel from 'react-native-snap-carousel';
 import Constant from '../../utils/constants';
@@ -63,14 +63,13 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                             overlayContainerStyle={styles.image_vet}
                         />
                     </View>
-                </HeaderBackLeft>
+                </HeaderBackLeft> 
+                //   <HeaderLeft navigation={navigation} userRoot={route.params.userRoot} setUpdateAddress={false} />
+
             ), */
-            headerRight: () => (
-                <View>
-                    <Text>asdasdasd</Text>
-                </View>
+           /*  headerRight: () => (
                 // <HeaderRight navigation={navigation} userRoot={route.params.userRoot} hideCount={true} />
-                /* <HeaderBackLeft navigation={navigation} >
+                <HeaderBackLeft navigation={navigation} >
                      <View style={{ position: "absolute", left: 10, top: 45 }}>
                          <Avatar
                              size={60}
@@ -79,9 +78,9 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                              overlayContainerStyle={styles.image_vet}
                          />
                      </View>
-                 </HeaderBackLeft> */
+                 </HeaderBackLeft> 
 
-            )
+            ) */
         });
     }, [navigation]);
 
