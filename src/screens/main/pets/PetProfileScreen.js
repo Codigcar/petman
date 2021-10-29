@@ -87,12 +87,13 @@ export default function PetProfileScreen({ navigation, route }) {
                     function (response) {
                         console.log('json response: ' + JSON.stringify(response));
 
-                        Alert.alert('', response.RespuestaMensaje);
                         setLoading(false);
                         if (die) {
                             setShowGameOver(false);
                             navigation.goBack();
                         }
+                        Alert.alert('', response.RespuestaMensaje, [{text: 'OK', onPress: () => { navigation.navigate('StartHomeScreen', { userRoot: route.params.userRoot}); }}]);
+
                     });
             })
             .catch(err => {
