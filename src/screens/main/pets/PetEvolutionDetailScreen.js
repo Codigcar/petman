@@ -56,7 +56,7 @@ export default function PetEvolutionDetailScreen({ navigation, route }) {
     const renderHeader = ({ section }) => {
         return (
             <View>
-                <View style={{ height: 40, paddingLeft: 20, justifyContent: "center" }}>
+                <View style={{ height: 40, paddingLeft: 20, justifyContent: "center", backgroundColor: Styles.colors.defaultBackground}}>
                     <Text style={[Styles.textBoldOpaque, { fontSize: 14 }]}>{section.title}</Text>
                 </View>
                 <Divider />

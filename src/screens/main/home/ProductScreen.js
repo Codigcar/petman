@@ -217,7 +217,7 @@ export default function ProductScreen({ navigation, route }) {
                         <Divider style={{ height: 10, backgroundColor: Styles.colors.defaultBackground }} />
                     </View>
                 }
-                style={{ backgroundColor: /* Styles.colors.background */ 'green' }}
+                style={{ backgroundColor: Styles.colors.background }}
                 renderItem={({ item, index }) =>
                     <View>
                         <View style={{ flexDirection: "row", height: SIZE, width: Constant.DEVICE.WIDTH, margin: 15, marginBottom: 25 }}>

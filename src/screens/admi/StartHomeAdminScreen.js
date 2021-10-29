@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Platform, TouchableHighlight, ScrollView, Pressable } from 'react-native';
+import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Platform, TouchableHighlight, ScrollView, Pressable, SectionList } from 'react-native';
 import { Avatar, Icon, Overlay } from 'react-native-elements';
 import 'react-native-gesture-handler';
 import { Button, Divider, DropDownPicker, HeaderBackLeft, HeaderLeft, HeaderRight } from '../../components';
@@ -67,20 +67,20 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                 //   <HeaderLeft navigation={navigation} userRoot={route.params.userRoot} setUpdateAddress={false} />
 
             ), */
-           /*  headerRight: () => (
-                // <HeaderRight navigation={navigation} userRoot={route.params.userRoot} hideCount={true} />
-                <HeaderBackLeft navigation={navigation} >
-                     <View style={{ position: "absolute", left: 10, top: 45 }}>
-                         <Avatar
-                             size={60}
-                             rounded
-                             source={{ uri: route.params.veterinary.VTA_NombreFoto }}
-                             overlayContainerStyle={styles.image_vet}
-                         />
-                     </View>
-                 </HeaderBackLeft> 
-
-            ) */
+            /*  headerRight: () => (
+                 // <HeaderRight navigation={navigation} userRoot={route.params.userRoot} hideCount={true} />
+                 <HeaderBackLeft navigation={navigation} >
+                      <View style={{ position: "absolute", left: 10, top: 45 }}>
+                          <Avatar
+                              size={60}
+                              rounded
+                              source={{ uri: route.params.veterinary.VTA_NombreFoto }}
+                              overlayContainerStyle={styles.image_vet}
+                          />
+                      </View>
+                  </HeaderBackLeft> 
+ 
+             ) */
         });
     }, [navigation]);
 
@@ -199,7 +199,7 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                         [Styles.textOpaque,
                         (ID_SERVICE === SV_IdServicio) && { color: Styles.colors.secondary },
                         {
-                            fontSize: 12, textAlign: "center",
+                            fontSize: 14, textAlign: "center",
                             width: 80, height: 40, marginTop: 8,
 
                         }]}>
@@ -261,32 +261,70 @@ export default function StartHomeAdminScreen({ navigation, route }) {
         );
     }
 
-    return (
-        <View style={{ flex: 1 }}>
-            <OverlayCart
-                navigation={navigation}
-                visible={visible}
-                backdropPress={() => { setVisible(false); _loadStorage(); searchVeterinaryProduct(); }}
-                userRoot={route.params.userRoot}
-                successPayment={() => { ITEMS_BUYED = {}; searchVeterinaryProduct(); }}
-            />
+    const renderHeader = ({ section }) => {
+        return (
+            <View>
+                <View style={{ height: 40, paddingLeft: 20, justifyContent: "center", backgroundColor: Styles.colors.defaultBackground }}>
+                    <Text style={[Styles.textBoldOpaque, { fontSize: 14 }]}>{section.title}</Text>
+                </View>
+                <Divider />
+            </View>
+        )
+    }
 
-            {/* Estrellas del producto */}
-            {/* ------ */}
-            {/*  <View style={{ width: Constant.DEVICE.WIDTH, height: 45, justifyContent: "center", borderBottomWidth: .5, borderBottomColor: Styles.colors.gris, backgroundColor: Styles.colors.background }}>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginLeft: 80, marginRight: 20 }}>
-                    {renderRating(5, 15, parseInt(route.params.veterinary.VTA_Ranking))}
-                    <View style={{ flexDirection: "row" }}>
-                        <Icon name='clock-time-three-outline' type='material-community' size={15} color={Styles.colors.opaque} style={{ marginRight: 5, marginLeft: 10 }} />
-                        <Text style={[Styles.textLightGrey, { fontSize: 14 }]}>{route.params.veterinary.VTA_Horario}</Text>
+    const renderItemsOrders = (item) => {
+        return (
+            <View>
+                <View style={{ flexDirection: "row", height: SIZE, width: Constant.DEVICE.WIDTH, margin: 15, marginLeft: 20, marginBottom: 25 }}>
+                    <View style={{ width: SIZE - 20, justifyContent: "center" }} >
+                        <CheckBox
+                            disabled={false}
+                            value={listOfSeletectedOrders.find(element => element === item.V_IdVenta)}
+                            onValueChange={(newValue) => {
+                                console.log('CheckBox value: ', item.V_IdVenta);
+                                if (newValue) {
+                                    const found = listOfSeletectedOrders.find(element => element === item.V_IdVenta);
+                                    if (!found) {
+                                        setListOfSeletectedOrders((oldArray) => [...oldArray, item.V_IdVenta]);
+                                    }
+                                } else {
+                                    const found = listOfSeletectedOrders.filter(element => element !== item.V_IdVenta);
+                                    setListOfSeletectedOrders(found);
+                                }
+                                console.log('setListOfSeletectedOrders: ', JSON.stringify(listOfSeletectedOrders));
+                            }}
+                        />
                     </View>
-                    <View style={{ flexDirection: "row" }}>
-                        <Icon name='home-outline' type='material-community' size={15} color={Styles.colors.opaque} style={{ marginRight: 5, marginLeft: 0 }} />
-                        <Text style={[Styles.textLightGrey, { fontSize: 14 }]}>{route.params.veterinary.VTA_Distancia} {route.params.veterinary.VTA_Distancia_Unidad}</Text>
+                    <View style={{ marginLeft: 5, width: Constant.DEVICE.WIDTH - (SIZE + 50) }}>
+                        <View style={{}}>
+                            <View style={{ flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", height: 30 }}>
+                                <Text style={[Styles.textBoldOpaque, { fontSize: 16 }]}>{item.CCL_NombreCompleto}</Text>
+                                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginTop: 8 }}>
+                                    <Image style={{ width: 40, height: 40, resizeMode: "cover", borderRadius: 10, marginTop: 5 }}
+                                        source={{ uri: item.DetallePedido[0].MS_NombreFotoMascota }}
+                                    />
+                                    <View style={{ flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", marginLeft: 15/* , backgroundColor:'cyan'  */ }}>
+                                        <Text style={[Styles.textLightGrey, { fontSize: 16 }]}>{item.DetallePedido[0].MS_NombreMascota}</Text>
+                                        <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
+                                            <Image style={{ width: 20, height: 20, resizeMode: "cover", borderRadius: 10, marginTop: 5 }}
+                                                source={{ uri: item.DetallePedido[0].SE_RutaSexoMascota }}
+                                            />
+                                            <Text style={[Styles.textLightGrey, { fontSize: 16 }]}>{item.DetallePedido[0].MS_Descripcion2}</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+                            <Text style={[Styles.textLightGrey, { fontSize: 12, width: Constant.DEVICE.WIDTH - (SIZE + 80), height: 30 }]}>{item.PR_Descripcion}</Text>
+                        </View>
                     </View>
                 </View>
-            </View> */}
+                <Divider />
+            </View>
+        )
+    }
 
+    return (
+        <View style={{ flex: 1 }}>
             <FlatList
                 data={items}
                 keyExtractor={(item, index) => item + index}
@@ -313,82 +351,25 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                         <Divider style={{ height: 10, backgroundColor: Styles.colors.defaultBackground }} />
                     </View>
                 }
-                style={{ backgroundColor: Styles.colors.background /* 'blue' */ }}
-                renderItem={({ item, index }) =>
-                    <View>
-                        <View style={{ flexDirection: "row", height: SIZE, width: Constant.DEVICE.WIDTH, margin: 15, marginLeft: 20, marginBottom: 25 }}>
-                            <View style={{ width: SIZE - 20, justifyContent: "center" }} >
-                                <CheckBox
-                                    disabled={false}
-                                    value={listOfSeletectedOrders.find(element => element === item.V_IdVenta)}
-                                    onValueChange={(newValue) => {
-                                        console.log('CheckBox value: ', item.V_IdVenta);
-                                        if (newValue) {
-                                            const found = listOfSeletectedOrders.find(element => element === item.V_IdVenta);
-                                            if (!found) {
-                                                setListOfSeletectedOrders((oldArray) => [...oldArray, item.V_IdVenta]);
-                                            }
-                                        } else {
-                                            const found = listOfSeletectedOrders.filter(element => element !== item.V_IdVenta);
-                                            setListOfSeletectedOrders(found);
-                                        }
-                                        console.log('setListOfSeletectedOrders: ', JSON.stringify(listOfSeletectedOrders));
-                                    }}
-                                />
-                            </View>
-                            <View style={{ marginLeft: 5, width: Constant.DEVICE.WIDTH - (SIZE + 50) }}>
-                                <View style={{}}>
-                                    <View style={{ flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", height: 30 }}>
-                                        <Text style={[Styles.textBoldOpaque, { fontSize: 16 }]}>{item.CCL_NombreCompleto}</Text>
-                                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginTop: 8 }}>
-                                            <Image style={{ width: 40, height: 40, resizeMode: "cover", borderRadius: 10, marginTop: 5 }}
-                                                source={{ uri: item.DetallePedido[0].MS_NombreFotoMascota }}
-                                            />
-                                            <View style={{ flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", marginLeft: 15/* , backgroundColor:'cyan'  */ }}>
-                                                <Text style={[Styles.textLightGrey, { fontSize: 16 }]}>{item.DetallePedido[0].MS_NombreMascota}</Text>
-                                                <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
-                                                    <Image style={{ width: 20, height: 20, resizeMode: "cover", borderRadius: 10, marginTop: 5 }}
-                                                        source={{ uri: item.DetallePedido[0].SE_RutaSexoMascota }}
-                                                    />
-                                                    <Text style={[Styles.textLightGrey, { fontSize: 16 }]}>{item.DetallePedido[0].MS_Descripcion2}</Text>
-                                                </View>
-                                            </View>
-                                        </View>
-                                        {/* {(typeof ITEMS_BUYED[item.VTA_IdVeterinaria + '-' + item.PR_IdProducto + '-' + Constant.GLOBAL.PET.ID] === "undefined")
-                                            ? <></>
-                                            :
-                                            <View style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, justifyContent: "center", alignItems: "flex-end" }}>
-                                                <View style={{ backgroundColor: Styles.colors.cian, width: 20, height: 20, alignItems: "center", justifyContent: "center", borderRadius: 5 }}>
-                                                    <Text style={[Styles.textLightGrey, { color: Styles.colors.background, fontSize: 14 }]}>{ITEMS_BUYED[item.VTA_IdVeterinaria + '-' + item.PR_IdProducto + '-' + Constant.GLOBAL.PET.ID]['CantidadProducto']}</Text>
-                                                </View>
-                                            </View>
-                                        } */}
-                                    </View>
-                                    <Text style={[Styles.textLightGrey, { fontSize: 12, width: Constant.DEVICE.WIDTH - (SIZE + 80), height: 30 }]}>{item.PR_Descripcion}</Text>
-                                </View>
-                                {/* <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                                    <Text style={[Styles.textBoldOpaque, { fontSize: 12, color: Styles.colors.secondary }]}>Precio S/ {item.PR_MontoTotal === null ? 0.00 : item.PR_MontoTotal.toFixed(2)}</Text>
-                                    <Button
-                                        buttonStyle={[Styles.button.primary, { width: 80, height: 25, borderWidth: 1, padding: -10 }]}
-                                        title="agregar"
-                                        titleStyle={[Styles.textOpaque, { fontSize: 12, color: Styles.colors.black }]}
-                                        onPress={() => { add(item) }}
-                                        disabled={(typeof ITEMS_BUYED[item.VTA_IdVeterinaria + '-' + item.PR_IdProducto + '-' + Constant.GLOBAL.PET.ID] != "undefined" &&
-                                            ITEMS_BUYED[item.VTA_IdVeterinaria + '-' + item.PR_IdProducto + '-' + Constant.GLOBAL.PET.ID]['CantidadProducto'] >= item.PR_Stock)}
-                                    />
-                                </View> */}
-
-                                {/* <CheckBox
-                                    disabled={false}
-                                    value={acceptTerms}
-                                    onValueChange={(newValue) => setAcceptTerms(newValue)}
-                                /> */}
-                            </View>
-                        </View>
-                        <Divider />
-                    </View>
+                style={{ backgroundColor: Styles.colors.background }}
+                renderItem={({ item, index }) => 
+                    renderItemsOrders(item)
+                    /* <SectionList
+                        sections={item}
+                        keyExtractor={(item, index) => item + index}
+                        renderItem={renderItemsOrders}
+                        renderSectionHeader={renderHeader}
+                    /> */
                 }
             />
+            {/* <View style={{ flex: 1, backgroundColor:'red' }}>
+               { <SectionList
+                    sections={items}
+                    keyExtractor={(item, index) => item + index}
+                    renderItem={renderItemsOrders}
+                    renderSectionHeader={renderHeader}
+                />}
+            </View> */}
             {/* boton abajo */}
             <View style={{ backgroundColor: /* 'red' */ '#e0e0e0', width: Constant.DEVICE.WIDTH, height: 180 }}>
                 <Divider style={{ height: 10, backgroundColor: Styles.colors.defaultBackground }} />
