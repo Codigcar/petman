@@ -11,6 +11,7 @@ class MapPlaceSearch extends React.Component {
         return (
             <GooglePlacesAutocomplete
                 placeholder='Ingresar una nueva dirección'
+                textInputProps = {{placeholderTextColor: Styles.colors.gris}}
                 minLength={1} // minimum length of text to search
                 // autoFocus={true}
                 // returnKeyType={'search'} // Can be left out for default return key 
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         height: 60,
-        backgroundColor: Styles.colors.primary
+        backgroundColor: Styles.colors.primary,
     },
     textInput: {
         color: Styles.colors.gris,
