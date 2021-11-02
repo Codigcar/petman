@@ -83,8 +83,8 @@ export default function StartHomeAdminScreen({ navigation, route }) {
              ) */
         });
     }, [navigation]);
-
-    useEffect(() => {
+    /* aki */
+   /*  useEffect(() => {
         fetchPOST(Constant.URI.VENTA_OBTENER_PEDIDO, {
             "I_VTA_IdVeterinaria": 3,
             "I_V_Estado": 0,
@@ -117,7 +117,7 @@ export default function StartHomeAdminScreen({ navigation, route }) {
         ID_SERVICE = 1;
         searchVeterinaryProduct();
         _loadStorage();
-    }, []);
+    }, []); */
 
     useEffect(() => {
         fetchPOST(Constant.URI.ESTADO_PEDIDO_LISTAR, {},
@@ -127,11 +127,27 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                         return { label: e['V_NombreEstadoPedido'], value: e['V_EstadoPedido'], color: e['RZ_Color'] || Styles.colors.gris }
                     });
                     setStateOrders(list);
-                    console.log('ESTADO_PEDIDO_LISTAR: ', stateOrders);
+
+                    const listServicesCarrusel = response.Data.map((e) => {
+                        return { SV_IdServicio: e['V_EstadoPedido'], SV_NombreServicio: e['V_NombreEstadoPedido'] }
+                    });
+                    setServices(listServicesCarrusel);
+
+                    /* console.log('ESTADO_PEDIDO_LISTAR: ', stateOrders);
+
+                    setServices([
+                        {
+                            SV_IdServicio: 1,
+                            SV_NombreServicio: 'Pendiente',
+                        }, */
+
                     // setServices(response.Data);
                 } else {
                     Alert.alert('', response.RespuestaMensaje);
                 }
+                ID_SERVICE = 1;
+                searchVeterinaryProduct();
+                _loadStorage();
             })
 
 
@@ -352,7 +368,7 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                     </View>
                 }
                 style={{ backgroundColor: Styles.colors.background }}
-                renderItem={({ item, index }) => 
+                renderItem={({ item, index }) =>
                     renderItemsOrders(item)
                     /* <SectionList
                         sections={item}

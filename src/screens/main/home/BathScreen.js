@@ -106,12 +106,12 @@ export default function BathScreen({ navigation, route }) {
                                 }}
                             >
                                 <View style={{ flexDirection: "row" /* , height: SIZE, width: Constant.DEVICE.WIDTH, margin: 15, marginBottom: 15 */}}>
-                                    <View style={{ width: SIZE + 10, height: SIZE + 30, alignItems: "center", justifyContent: "center" }} >
+                                    <View style={{ width: SIZE + 10, height: SIZE + 30, alignItems: "center", justifyContent: "center", marginLeft:17 }} >
                                         <Image style={{ width: SIZE, height: SIZE, resizeMode: "cover", borderRadius: 10, marginTop: 5 }}
                                             source={{ uri: item.VTA_NombreFoto }}
                                         />
                                     </View>
-                                    <View style={{ justifyContent: "space-between", margin: 5, width: Constant.DEVICE.WIDTH - (SIZE + 30), paddingRight: 10 }}>
+                                    <View style={{ justifyContent: "space-between", margin: 5, width: Constant.DEVICE.WIDTH - (SIZE + 30), paddingRight: 30}}>
                                         <View style={{ marginTop: 10 }}>
                                             <Text style={[Styles.textBoldOpaque, { fontSize: 18, marginBottom: 5 }]}>{item.PR_NombreProducto}</Text>
                                             <Text style={[Styles.textBoldOpaque, { fontSize: 14, color: Styles.colors.secondary }]}>S/ {item.PR_MontoTotal === null ? 0.00 : item.PR_MontoTotal.toFixed(2)}</Text>
