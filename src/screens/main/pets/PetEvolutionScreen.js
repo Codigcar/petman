@@ -54,6 +54,7 @@ function PetEvolutionHomeScreen({ navigation, route }) {
     const [percentage, setPercentage] = useState({});
 
     useEffect(() => {
+       
         fetchPOST(Constant.URI.PET_EVOLUTION_LIST, {
             "i_ms_idmascota": route.params.pet.MS_IdMascota
         }, function (response) {
@@ -73,6 +74,12 @@ function PetEvolutionHomeScreen({ navigation, route }) {
             }
         })
     }, []);
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: '',
+        });
+    }, [navigation]);
 
     return (
         <FlatList
@@ -102,7 +109,7 @@ function PetEvolutionHomeScreen({ navigation, route }) {
                     }
                 </View>
             }
-            style={{ backgroundColor: Styles.colors.background , flex: 1 }}
+            style={{ backgroundColor: Styles.colors.background, flex: 1 }}
             keyExtractor={(item, index) => item + index}
             renderItem={({ item, index }) =>
                 <View>

@@ -83,41 +83,6 @@ export default function StartHomeAdminScreen({ navigation, route }) {
              ) */
         });
     }, [navigation]);
-    /* aki */
-   /*  useEffect(() => {
-        fetchPOST(Constant.URI.VENTA_OBTENER_PEDIDO, {
-            "I_VTA_IdVeterinaria": 3,
-            "I_V_Estado": 0,
-        }, function (response) {
-            if (response.CodigoMensaje == 100) {
-                console.log('VENTA_OBTENER_PEDIDO: ', response.Pedido);
-                // setServices(response.Data);
-                setServices([
-                    {
-                        SV_IdServicio: 1,
-                        SV_NombreServicio: 'Pendiente',
-                    },
-                    {
-                        SV_IdServicio: 2,
-                        SV_NombreServicio: 'Recojo',
-                    },
-                    {
-                        SV_IdServicio: 3,
-                        SV_NombreServicio: 'Atentido',
-                    },
-                    {
-                        SV_IdServicio: 4,
-                        SV_NombreServicio: 'Entregado',
-                    },
-                ]);
-            } else {
-                Alert.alert('', response.RespuestaMensaje);
-            }
-        })
-        ID_SERVICE = 1;
-        searchVeterinaryProduct();
-        _loadStorage();
-    }, []); */
 
     useEffect(() => {
         fetchPOST(Constant.URI.ESTADO_PEDIDO_LISTAR, {},
@@ -255,27 +220,6 @@ export default function StartHomeAdminScreen({ navigation, route }) {
         }
     }
 
-    const renderRating = (ratingCount, imageSize, value) => {
-        if (rating.length <= 0) {
-            if (value == 0) { value = 1; }
-            for (let index = 1; index <= ratingCount; index++) {
-                rating.push(
-                    <Image
-                        key={index}
-                        style={{ width: imageSize, height: imageSize, marginRight: 5 }}
-                        source={index <= value ? Constant.GLOBAL.IMAGES.RATING_STAR : Constant.GLOBAL.IMAGES.RATING_STAR_INACTIVE}
-                        loadingIndicatorSource={Constant.GLOBAL.IMAGES.RATING_STAR_INACTIVE}
-                        resizeMode="contain"
-                    />
-                )
-            }
-        }
-        return (
-            <View style={[{ marginLeft: 10, flexDirection: "row", justifyContent: "center" }]}>
-                {rating}
-            </View>
-        );
-    }
 
     const renderHeader = ({ section }) => {
         return (
@@ -287,11 +231,18 @@ export default function StartHomeAdminScreen({ navigation, route }) {
             </View>
         )
     }
+    const sendWhatsapp = cellphone => {
+        let countryCode = '+51';
+        let message = '';
+        Linking.openURL('whatsapp://send?text=' + message + '&phone=' + countryCode + cellphone).then().catch(() => {
+            Alert.alert('Error', 'No tiene la aplicación WhatsApp instalada.');
+        });
+    }
 
     const renderItemsOrders = (item) => {
         return (
             <View>
-                <View style={{ flexDirection: "row", height: SIZE, width: Constant.DEVICE.WIDTH, margin: 15, marginLeft: 20, marginBottom: 25 }}>
+                <View style={{ flexDirection: "row", height: SIZE+10 , width: Constant.DEVICE.WIDTH, margin: 15, marginLeft: 20, marginBottom: 35 }}>
                     <View style={{ width: SIZE - 20, justifyContent: "center" }} >
                         <CheckBox
                             disabled={false}
@@ -312,29 +263,32 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                         />
                     </View>
                     <View style={{ marginLeft: 5, width: Constant.DEVICE.WIDTH - (SIZE + 50) }}>
-                        <View style={{}}>
-                            <View style={{ flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", height: 30 }}>
-                                <Text style={[Styles.textBoldOpaque, { fontSize: 16 }]}>{item.CCL_NombreCompleto}</Text>
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginTop: 8 }}>
-                                    <Image style={{ width: 40, height: 40, resizeMode: "cover", borderRadius: 10, marginTop: 5 }}
-                                        source={{ uri: item.DetallePedido[0].MS_NombreFotoMascota }}
-                                    />
-                                    <View style={{ flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", marginLeft: 15/* , backgroundColor:'cyan'  */ }}>
-                                        <Text style={[Styles.textLightGrey, { fontSize: 16 }]}>{item.DetallePedido[0].MS_NombreMascota}</Text>
-                                        <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
-                                            <Image style={{ width: 20, height: 20, resizeMode: "cover", borderRadius: 10, marginTop: 5 }}
-                                                source={{ uri: item.DetallePedido[0].SE_RutaSexoMascota }}
-                                            />
-                                            <Text style={[Styles.textLightGrey, { fontSize: 16 }]}>{item.DetallePedido[0].MS_Descripcion2}</Text>
-                                        </View>
+                        <View style={{ flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", height: 30 }}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }}>
+                                <Text style={[Styles.textBoldOpaque, { fontSize: 16, backgroundColor: 'transparent', marginRight: 10 }]}>{item.CCL_NombreCompleto}</Text>
+                                <TouchableOpacity onPress={() => sendWhatsapp(item.CCL_Celular)} activeOpacity={0.7}>
+                                    <Icon name='whatsapp' type='font-awesome' color={Styles.colors.opaque} size={20} />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginTop: 8 }}>
+                                <Image style={{ width: 40, height: 40, resizeMode: "cover", borderRadius: 10, marginTop: 5 }}
+                                    source={{ uri: item.DetallePedido[0].MS_NombreFotoMascota }}
+                                />
+                                <View style={{ flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", marginLeft: 15/* , backgroundColor:'red' */}}>
+                                    <Text style={[Styles.textLightGrey, { fontSize: 16 }]}>{item.DetallePedido[0].MS_NombreMascota}</Text>
+                                    <View style={{ flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
+                                        <Image style={{ width: 20, height: 20, resizeMode: "cover", borderRadius: 10, marginTop: 5 }}
+                                            source={{ uri: item.DetallePedido[0].SE_RutaSexoMascota }}
+                                        />
+                                        <Text style={[Styles.textLightGrey, { fontSize: 16 }]}>{item.DetallePedido[0].MS_Descripcion2}</Text>
                                     </View>
+                                    <Text style={[Styles.textLightGrey, { fontSize: 16 }]}>{item.UB_Direccion}</Text>
                                 </View>
                             </View>
-                            <Text style={[Styles.textLightGrey, { fontSize: 12, width: Constant.DEVICE.WIDTH - (SIZE + 80), height: 30 }]}>{item.PR_Descripcion}</Text>
                         </View>
                     </View>
                 </View>
-                <Divider />
+                <Divider style={{marginTop: 0}} />
             </View>
         )
     }

@@ -28,6 +28,12 @@ export default function PetEvolutionDetailScreen({ navigation, route }) {
     let SIZE = 100;
     const [items, setItems] = useState([]);
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: '',
+        });
+    }, [navigation]);
+
     useEffect(() => {
         if (items.length === 0) {
             fetchPOST(Constant.URI.PET_EVOLUTION_GET, {
@@ -56,7 +62,7 @@ export default function PetEvolutionDetailScreen({ navigation, route }) {
     const renderHeader = ({ section }) => {
         return (
             <View>
-                <View style={{ height: 40, paddingLeft: 20, justifyContent: "center", backgroundColor: Styles.colors.defaultBackground}}>
+                <View style={{ height: 40, paddingLeft: 20, justifyContent: "center", backgroundColor: Styles.colors.defaultBackground }}>
                     <Text style={[Styles.textBoldOpaque, { fontSize: 14 }]}>{section.title}</Text>
                 </View>
                 <Divider />
