@@ -159,8 +159,8 @@ export default App = ({ navigation }) => {
 
     return () => {
       console.log("[App] unRegister")
-      /* fcmService.unRegister()
-      localNotificationService.unregister() */
+      fcmService.unRegister()
+      localNotificationService.unregister()
     }
 
   }, []);
