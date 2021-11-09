@@ -22,9 +22,6 @@ export default function StartHomeAdminScreen({ navigation, route }) {
     let SIZE = 75;
     const [services, setServices] = useState([]);
     const [items, setItems] = useState([]);
-    const [visible, setVisible] = useState(false);
-    const [rating, setRating] = useState([]);
-    const [selectedService, setSelectedService] = useState(false);
     const [stateOrders, setStateOrders] = useState([]);
     const [selectedStateOrder, setSelectedStateOrder] = useState(0);
     const [listOfSeletectedOrders, setListOfSeletectedOrders] = useState([]);
@@ -147,11 +144,17 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                     Alert.alert('', response.RespuestaMensaje);
                     searchVeterinaryProduct();
                 }
+                fetchPOST(Constant.URI.NOTIFICATION_PUSH_LOCAL, { 
+                    // "device_token":
+                 }, function (response){
+                    console.log('push notification enviado!!: ', response);
+                });
+
             } else {
                 Alert.alert('', response.RespuestaMensaje);
             }
         });
-        console.log('respuesta2!!');
+        
     }
 
     const renderCarouselItem = ({ item, index }) => {
@@ -191,36 +194,6 @@ export default function StartHomeAdminScreen({ navigation, route }) {
         );
     };
 
-    function getTotalCount() {
-        let count = 0;
-        Object.keys(ITEMS_BUYED).map((key) => {
-            count += ITEMS_BUYED[key]['CantidadProducto'];
-            return count;
-        });
-        return count;
-    }
-
-    function getTotalAmount() {
-        let amount = 0;
-        Object.keys(ITEMS_BUYED).map((key) => {
-            let { PR_MontoTotal, CantidadProducto } = ITEMS_BUYED[key];
-            amount += PR_MontoTotal * CantidadProducto;
-            return amount;
-        });
-        return amount;
-    }
-
-    const add = (product) => {
-        console.log('ADD: ' + JSON.stringify(VET_BUY) + ' - ' + route.params.veterinary.VTA_IdVeterinaria)
-        if (VET_BUY != null && VET_BUY != route.params.veterinary.VTA_IdVeterinaria) {
-            Alert.alert('', 'Hola PetLover!!! Primero debes terminar tu pedido con la Veterinaria actual, luego podrás elegir productos de otra Veterinaria, Muchas Gracias!!!!');
-        } else {
-            ITEMS_BUYED = addToCart(product, false, route.params.veterinary.VTA_NombreVeterinaria, ITEMS_BUYED, route.params.veterinary.VTA_IdVeterinaria);
-            searchVeterinaryProduct();
-        }
-    }
-
-
     const renderHeader = ({ section }) => {
         return (
             <View>
@@ -246,7 +219,7 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                     <View style={{ width: SIZE - 20, justifyContent: "center" }} >
                         <CheckBox
                             disabled={false}
-                            value={listOfSeletectedOrders.find(element => element === item.V_IdVenta)}
+                            value={listOfSeletectedOrders.find(element => element === item.V_IdVenta) ? true: false}
                             onValueChange={(newValue) => {
                                 console.log('CheckBox value: ', item.V_IdVenta);
                                 if (newValue) {
@@ -302,7 +275,7 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                 ListHeaderComponent={
                     <View>
                         <View style={{ backgroundColor: Styles.colors.background }}>
-                            <View style={{ height: 50 }}>
+                            <View style={{ height: 50, backgroundColor:'cyan' }}>
                                 <Carousel
                                     data={services}
                                     renderItem={renderCarouselItem}
@@ -324,22 +297,9 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                 style={{ backgroundColor: Styles.colors.background }}
                 renderItem={({ item, index }) =>
                     renderItemsOrders(item)
-                    /* <SectionList
-                        sections={item}
-                        keyExtractor={(item, index) => item + index}
-                        renderItem={renderItemsOrders}
-                        renderSectionHeader={renderHeader}
-                    /> */
                 }
             />
-            {/* <View style={{ flex: 1, backgroundColor:'red' }}>
-               { <SectionList
-                    sections={items}
-                    keyExtractor={(item, index) => item + index}
-                    renderItem={renderItemsOrders}
-                    renderSectionHeader={renderHeader}
-                />}
-            </View> */}
+          
             {/* boton abajo */}
             <View style={{ backgroundColor: /* 'red' */ '#e0e0e0', width: Constant.DEVICE.WIDTH, height: 180 }}>
                 <Divider style={{ height: 10, backgroundColor: Styles.colors.defaultBackground }} />
@@ -351,7 +311,7 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                             onValueChange={setSelectedStateOrder}
                             value={selectedStateOrder}
                             style={{
-                                inputAndroid: { backgroundColor: 'red', width: (Constant.DEVICE.WIDTH / 2) - 30, margin: -1 },
+                                inputAndroid: { backgroundColor: 'transparent', width: (Constant.DEVICE.WIDTH / 2) - 30, margin: -1 },
                                 iconContainer: { top: -5, right: 10 },
                             }}
                             useNativeAndroidPickerStyle={false}

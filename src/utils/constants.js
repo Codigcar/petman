@@ -166,5 +166,6 @@ export default {
         VENTA_OBTENER_PEDIDO: WS_URL + '/Operations/Venta_Obtener_Pedido',
         ESTADO_PEDIDO_LISTAR: WS_URL + '/Operations/Estado_Pedido_Listar',
         VENTA_ACTUALIZAR_ESTADO: WS_URL + '/Operations/Venta_Actualizar_Estado',
+        NOTIFICATION_PUSH_LOCAL: 'http://10.0.2.2:4000/',
     }
 }
