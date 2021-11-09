@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Platform, TouchableHighlight, ScrollView, Pressable, SectionList } from 'react-native';
+import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Platform, TouchableHighlight, ScrollView, Pressable, SectionList,Linking } from 'react-native';
 import { Avatar, Icon, Overlay } from 'react-native-elements';
 import 'react-native-gesture-handler';
 import { Button, Divider, DropDownPicker, HeaderBackLeft, HeaderLeft, HeaderRight } from '../../components';
@@ -134,18 +134,46 @@ export default function StartHomeAdminScreen({ navigation, route }) {
     }
 
     const changeOfOrderStatus = (order, listOfSeletectedOrdersLength) => {
-        fetchPOST(Constant.URI.VENTA_ACTUALIZAR_ESTADO, {
-            "I_V_IdVenta": order,
+
+        stateOrders.map(element => {
+            if(element.value === selectedStateOrder ){
+                fetchPOST(Constant.URI.VENTA_ACTUALIZAR_ESTADO, {
+                    "I_V_IdVenta": order.V_IdVenta ,
+                    "I_V_Estado": element.value,
+                }, function (response) {
+                    if (response.CodigoMensaje == 100) {
+                        console.log('respuesta!!');
+                        if (order.V_IdVenta === listOfSeletectedOrders[listOfSeletectedOrdersLength - 1].V_IdVenta) {
+                            Alert.alert('', response.RespuestaMensaje);
+                            searchVeterinaryProduct();
+                        }
+                        fetchPOST(Constant.URI.NOTIFICATION_PUSH_LOCAL, { 
+                            "device_token": order.DE_DeviceToken,
+                            "title": `¡Tu pedido se encuentra en proceso de ${element.label}!`,
+                            "body": `Para tu mascota ${order.DetallePedido[0].MS_NombreMascota}.`
+                         }, function (response){
+                            console.log('push notification enviado!!: ', response);
+                        });
+        
+                    } else {
+                        Alert.alert('', response.RespuestaMensaje);
+                    }
+                });
+            }
+        })
+
+        /* fetchPOST(Constant.URI.VENTA_ACTUALIZAR_ESTADO, {
+            "I_V_IdVenta": order.V_IdVenta ,
             "I_V_Estado": selectedStateOrder,
         }, function (response) {
             if (response.CodigoMensaje == 100) {
                 console.log('respuesta!!');
-                if (order === listOfSeletectedOrders[listOfSeletectedOrdersLength - 1]) {
+                if (order.V_IdVenta === listOfSeletectedOrders[listOfSeletectedOrdersLength - 1].V_IdVenta) {
                     Alert.alert('', response.RespuestaMensaje);
                     searchVeterinaryProduct();
                 }
                 fetchPOST(Constant.URI.NOTIFICATION_PUSH_LOCAL, { 
-                    // "device_token":
+                    "device_token": order.DE_DeviceToken
                  }, function (response){
                     console.log('push notification enviado!!: ', response);
                 });
@@ -153,7 +181,7 @@ export default function StartHomeAdminScreen({ navigation, route }) {
             } else {
                 Alert.alert('', response.RespuestaMensaje);
             }
-        });
+        }); */
         
     }
 
@@ -219,16 +247,16 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                     <View style={{ width: SIZE - 20, justifyContent: "center" }} >
                         <CheckBox
                             disabled={false}
-                            value={listOfSeletectedOrders.find(element => element === item.V_IdVenta) ? true: false}
+                            value={listOfSeletectedOrders.find(element => element.V_IdVenta === item.V_IdVenta) ? true: false}
                             onValueChange={(newValue) => {
                                 console.log('CheckBox value: ', item.V_IdVenta);
                                 if (newValue) {
-                                    const found = listOfSeletectedOrders.find(element => element === item.V_IdVenta);
+                                    const found = listOfSeletectedOrders.find(element => element.V_IdVenta === item.V_IdVenta);
                                     if (!found) {
-                                        setListOfSeletectedOrders((oldArray) => [...oldArray, item.V_IdVenta]);
+                                        setListOfSeletectedOrders((oldArray) => [...oldArray, item/* .V_IdVenta */]);
                                     }
                                 } else {
-                                    const found = listOfSeletectedOrders.filter(element => element !== item.V_IdVenta);
+                                    const found = listOfSeletectedOrders.filter(element => element.V_IdVenta !== item.V_IdVenta);
                                     setListOfSeletectedOrders(found);
                                 }
                                 console.log('setListOfSeletectedOrders: ', JSON.stringify(listOfSeletectedOrders));
@@ -239,7 +267,7 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                         <View style={{ flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", height: 30 }}>
                             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }}>
                                 <Text style={[Styles.textBoldOpaque, { fontSize: 16, backgroundColor: 'transparent', marginRight: 10 }]}>{item.CCL_NombreCompleto}</Text>
-                                <TouchableOpacity onPress={() => sendWhatsapp(item.CCL_Celular)} activeOpacity={0.7}>
+                                <TouchableOpacity onPress={() => sendWhatsapp(item.CCL_Celular) /* console.log('item.CCL_Celular: ',item.CCL_Celular) */ } activeOpacity={0.7}>
                                     <Icon name='whatsapp' type='font-awesome' color={Styles.colors.opaque} size={20} />
                                 </TouchableOpacity>
                             </View>
@@ -275,18 +303,18 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                 ListHeaderComponent={
                     <View>
                         <View style={{ backgroundColor: Styles.colors.background }}>
-                            <View style={{ height: 50, backgroundColor:'cyan' }}>
+                            <View style={{ height: 50, marginTop:0, flex:1,alignItems: "center", justifyContent:"center" }}>
                                 <Carousel
                                     data={services}
                                     renderItem={renderCarouselItem}
                                     sliderWidth={Constant.DEVICE.WIDTH}
                                     itemWidth={(Constant.DEVICE.WIDTH / 4)}
-                                    contentContainerCustomStyle={{ paddingLeft: 0, paddingRight: 0 }}
+                                    contentContainerCustomStyle={{ paddingLeft: 0, paddingRight: 0/* , backgroundColor:'cyan' */ }}
                                     inactiveSlideScale={1}
                                     inactiveSlideOpacity={1}
                                     enableMomentum={false}
                                     enableSnap={true}
-                                    slideStyle={{ alignItems: "center" }}
+                                    slideStyle={{alignItems: "center"/*, justifyContent:"center" , marginTop:"40%"  */}}
                                     removeClippedSubviews={false}
                                 />
                             </View>
@@ -311,7 +339,7 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                             onValueChange={setSelectedStateOrder}
                             value={selectedStateOrder}
                             style={{
-                                inputAndroid: { backgroundColor: 'transparent', width: (Constant.DEVICE.WIDTH / 2) - 30, margin: -1 },
+                                inputAndroid: { backgroundColor: 'transparent', width: (Constant.DEVICE.WIDTH / 2) - 50, margin: -13 },
                                 iconContainer: { top: -5, right: 10 },
                             }}
                             useNativeAndroidPickerStyle={false}
@@ -336,7 +364,7 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                                     setOrderLast(listOfSeletectedOrders[listOfSeletectedOrders.length - 1]);
                                 }
                                 listOfSeletectedOrders.map((item) => {
-                                    console.log('itemFOr: ', item);
+                                    console.log('itemfOr: ', item);
                                     console.log('orderLast: ', orderLast);
                                     changeOfOrderStatus(item, listOfSeletectedOrders.length);
                                 })

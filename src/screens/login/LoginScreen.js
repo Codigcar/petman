@@ -22,8 +22,8 @@ const LoginScreen = ({ route }) => {
   const getDataUser = async() => {
     const dniStorage = await AsyncStorage.getItem('dniStorage');
     const passwordStorage = await AsyncStorage.getItem('passwordStorage');
-    console.log('dniStorage ', dniStorage);
-    console.log('passwordStorage ', passwordStorage);
+    // console.log('dniStorage ', dniStorage);
+    // console.log('passwordStorage ', passwordStorage);
 
     if(!dniStorage){
       console.log('No hay data en el Storage');
