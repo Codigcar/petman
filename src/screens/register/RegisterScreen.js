@@ -72,7 +72,8 @@ const RegisterScreen = ({ navigation, route }) => {
           "i_ccl_apepaterno": lastname,
           "i_ccl_apematerno": motherLastname,
           "i_ccl_email": email,
-          "i_ccl_celular": cellphone
+          "i_ccl_celular": cellphone,
+          "i_usu_devicetoken": route.params.deviceToken
         }, function (response) {
           if (response.CodigoMensaje == 100) {
             console.log("DATA: " + JSON.stringify(data) + "-" + acceptTerms);

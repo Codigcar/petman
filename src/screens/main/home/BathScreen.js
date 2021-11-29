@@ -108,7 +108,7 @@ export default function BathScreen({ navigation, route }) {
                                 <View style={{ flexDirection: "row" /* , height: SIZE, width: Constant.DEVICE.WIDTH, margin: 15, marginBottom: 15 */}}>
                                     <View style={{ width: SIZE + 10, height: SIZE + 30, alignItems: "center", justifyContent: "center", marginLeft:17 }} >
                                         <Image style={{ width: SIZE, height: SIZE, resizeMode: "cover", borderRadius: 10, marginTop: 5 }}
-                                            source={{ uri: item.VTA_NombreFoto }}
+                                            source={{ uri: item.PR_NombreFoto }}
                                         />
                                     </View>
                                     <View style={{ justifyContent: "space-between", margin: 5, width: Constant.DEVICE.WIDTH - (SIZE + 30), paddingRight: 30}}>

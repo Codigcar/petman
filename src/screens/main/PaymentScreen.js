@@ -35,7 +35,7 @@ export default class PaymentScreen extends React.Component {
         };
     }
 
-  
+
     componentDidMount() {
         this.props.navigation.setOptions({
             title: 'Pago',
@@ -80,20 +80,41 @@ export default class PaymentScreen extends React.Component {
             identifier,
             signature,
             transaction,
-            onSuccess: (response ) => {
+            onSuccess: (response) => {
                 const jsonResponse = JSON.parse(response);
                 console.log('PAGO BIEN: ' + JSON.stringify(jsonResponse));
                 // Alert.alert('onSuccess: ' + jsonResponse.message.text);
+                console.log('AsyncStorage:::::', JSON.stringify(AsyncStorage));
 
                 bodyProducts.I_V_NroOperacion = jsonResponse.result.processorResult.transactionIdentifier;
                 fetchPOST(Constant.URI.SALE_REGISTRY, bodyProducts, function (resp) {
-                    const _clearAsyncStore = async () => {
-                        await AsyncStorage.clear();
-                    }
-                    _clearAsyncStore();
-                    Alert.alert('', resp.RespuestaMensaje);
+                    if (resp.CodigoMensaje == 100) {
+                        console.log('SALE_REGISTRY::::', resp);
+                        // console.log('SALE_REGISTRY::::bodyProducts:', bodyProducts);
+                        // console.log('resp.DE_DeviceToken:::::', resp.Data.DE_DeviceToken);
+                        // console.log('resp.DE_DeviceToken:::::', resp.Data[0].DE_DeviceToken);
+                        const _clearAsyncStore = async () => {
+                            // await AsyncStorage.clear();
+                            await AsyncStorage.removeItem('@INDEX_MOBILITY');
+                            await AsyncStorage.removeItem('@ITEMS_BUYED');
+                        }
+                        _clearAsyncStore();
+                        Alert.alert('', resp.RespuestaMensaje);
 
-                    _goBack();
+                        _goBack();
+
+                        // console.log('respuesta!!');
+                        fetchPOST(Constant.URI.NOTIFICATION_PUSH_LOCAL, {
+                            "device_token": resp.Data[0].DE_DeviceToken,
+                            "title": `¡Tienes un pedido nuevo!`,
+                            "body": `Ingresa a Petman para visualizarlo.`
+                        }, function (response) {
+                            console.log('push notification enviado!!: ', response);
+                        });
+                    }
+                    else {
+                        Alert.alert('', resp.RespuestaMensaje);
+                    }
                 });
 
                 const _goBack = () => {
@@ -143,7 +164,7 @@ export default class PaymentScreen extends React.Component {
         }, 2000);
     }
 
-    
+
 
 
     getTransaction() {
@@ -198,16 +219,16 @@ export default class PaymentScreen extends React.Component {
         };
     }
 
-    
+
     render() {
         const updateIsLoading = () => {
             console.log('-------------------------------------------updateIsLoading');
-            this.setState({isLoading:false,});
+            this.setState({ isLoading: false, });
         }
-    
+
         return (
             <SafeAreaView style={styles.container}>
-              <Loading visible={this.state.isLoading} overlayColor={Styles.colors.background} />
+                <Loading visible={this.state.isLoading} overlayColor={Styles.colors.background} />
                 <View>
                     <View style={{ alignItems: "center", marginTop: 10 }}>
                         <Image
@@ -217,48 +238,48 @@ export default class PaymentScreen extends React.Component {
                         />
                     </View>
                     <View>
-                        
+
                         <View style={styles.paymentContainer} >
-                            
+
                             <PaymentView
                                 updateIsLoading={updateIsLoading}
                                 ref="paymentView"
                                 themeName="dark"
                                 environmentName="SANDBOX"
-                                >
+                            >
                             </PaymentView>
                         </View>
                         <View>
-                        {
-                                this.state.isLoading ? 
-                                <TouchableOpacity
-                                activeOpacity={.8}
-                                style={[
-                                    Styles.button.primary,
-                                    { height: 50, flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor:Styles.colors.color_background }
-                                ]}
-                                onPress={() => { this.pay() }}
-                                disabled={true}
-                            >
-                                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: "center", alignItems: "center" }}>
-                                       <ActivityIndicator color={Styles.colors.primary} size={40} />
-                                </View>
-                                </TouchableOpacity>
-                                :
-                                <TouchableOpacity
-                                    activeOpacity={.8}
-                                    style={[
-                                        Styles.button.primary,
-                                        { height: 50, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }
-                                    ]}
-                                    onPress={() => { this.pay() }}
-                                    disabled={this.state.isPaying}
-                                >
-                                    <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: "center", alignItems: "center" }}>
+                            {
+                                this.state.isLoading ?
+                                    <TouchableOpacity
+                                        activeOpacity={.8}
+                                        style={[
+                                            Styles.button.primary,
+                                            { height: 50, flexDirection: "row", justifyContent: "space-between", alignItems: "center", backgroundColor: Styles.colors.color_background }
+                                        ]}
+                                        onPress={() => { this.pay() }}
+                                        disabled={true}
+                                    >
+                                        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: "center", alignItems: "center" }}>
+                                            <ActivityIndicator color={Styles.colors.primary} size={40} />
+                                        </View>
+                                    </TouchableOpacity>
+                                    :
+                                    <TouchableOpacity
+                                        activeOpacity={.8}
+                                        style={[
+                                            Styles.button.primary,
+                                            { height: 50, flexDirection: "row", justifyContent: "space-between", alignItems: "center" }
+                                        ]}
+                                        onPress={() => { this.pay() }}
+                                        disabled={this.state.isPaying}
+                                    >
+                                        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: "center", alignItems: "center" }}>
                                             <Text style={[Styles.textOpaque, { fontSize: 14, color: Styles.colors.black, textAlign: "center" }]}>Pagar S/{this.props.route.params.totalAmount}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                        }
+                                        </View>
+                                    </TouchableOpacity>
+                            }
                         </View>
                     </View>
                 </View>

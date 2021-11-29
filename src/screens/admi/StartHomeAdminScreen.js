@@ -111,13 +111,11 @@ export default function StartHomeAdminScreen({ navigation, route }) {
                 searchVeterinaryProduct();
                 _loadStorage();
             })
-
-
     }, [])
 
     const searchVeterinaryProduct = () => {
         fetchPOST(Constant.URI.VENTA_OBTENER_PEDIDO, {
-            "I_VTA_IdVeterinaria": 3,
+            "I_VTA_IdVeterinaria": route.params.veterinary.VTA_IdVeterinaria,
             "I_V_Estado": ID_SERVICE,
         }, function (response) {
             if (response.CodigoMensaje == 100) {

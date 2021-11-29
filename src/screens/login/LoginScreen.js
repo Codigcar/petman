@@ -10,8 +10,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 const LoginScreen = ({ route }) => {
-  const [dni, setdni] = useState('12312312');
-  const [password, setPassword] = useState('Carlos123');
+  const [dni, setdni] = useState('32132132');
+  const [password, setPassword] = useState('123123');
   const [loading, setLoading] = useState(false);
   const [SignUpErrors, setSignUpErrors] = useState({});
   const [isViewLoading, setIsViewLoading] = useState(true);

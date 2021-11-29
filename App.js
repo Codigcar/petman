@@ -233,6 +233,7 @@ export default App = ({ navigation }) => {
           <Stack.Screen
             name="RegisterScreen"
             component={RegisterScreen}
+            initialParams={{ deviceToken: DEVICE_TOKEN }}
             options={{ headerShown: false }}
           />,
         );

@@ -77,14 +77,14 @@ export default function SettingsHomeScreen({ navigation, route }) {
           headerLeft: () => (
             <HeaderBackLeft navigation={navigation} />
           ),
-          
-          headerRight: () => (
+
+          /* headerRight: () => (
             (route.params.userRoot.PF_IdPerfil === 1) ? 
             <HeaderRight navigation={navigation} userRoot={route.params.userRoot} />
             :
             <View></View>
           ),
-          
+           */
         }} />
       <Stack.Screen
         name="SettingsDataScreen"
