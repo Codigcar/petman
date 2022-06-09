@@ -59,6 +59,9 @@ export const reducer = (prevState, action) => {
                 isLoggedIn: true,
                 isNotSignedUp: false,
                 isNotSignedIn: false,
+                // añadido nuevo
+                // isLoading: false,
+                // 
                 userRoot: action.userRoot.data,
             };
         case 'SIGN_OUT': //LOAD_SIGNIN
@@ -72,6 +75,7 @@ export const reducer = (prevState, action) => {
 
 export const initialState = {
     isLoading: true,
+    // 
     isNotSignedIn: false,
     isLoggedIn: false,
     isNotSignedUp: false,

@@ -50,8 +50,9 @@ export default function PetProfileScreen({ navigation, route }) {
             const list = response.Data.map((e) => {
                 return { label: e['RZ_NombreRaza'], value: e['RZ_IdRaza'], color: e['RZ_Color'] || Styles.colors.black }
             });
-            setRace('');
+            // setRace('');
             setRaces(list);
+            // setRace(list[0]['value']);
         })
     }, [type]);
 
@@ -86,12 +87,13 @@ export default function PetProfileScreen({ navigation, route }) {
                     function (response) {
                         console.log('json response: ' + JSON.stringify(response));
 
-                        Alert.alert('', response.RespuestaMensaje);
                         setLoading(false);
                         if (die) {
                             setShowGameOver(false);
                             navigation.goBack();
                         }
+                        Alert.alert('', response.RespuestaMensaje, [{text: 'OK', onPress: () => { navigation.navigate('StartHomeScreen', { userRoot: route.params.userRoot}); }}]);
+
                     });
             })
             .catch(err => {
@@ -189,22 +191,45 @@ export default function PetProfileScreen({ navigation, route }) {
                         <Text style={[Styles.textOpaque, { fontSize: 12 }]}>Raza</Text>
                         {races.length == 0
                             ? <></>
-                            : <DropDownPicker
-                                key={race}
-                                placeholder={{}}
-                                items={races}
-                                onValueChange={setRace}
-                                value={race}
-                                style={{
-                                    inputAndroid: { backgroundColor: 'transparent', margin: -1 },
-                                    iconContainer: { top: 5 }
-                                }}
-                                useNativeAndroidPickerStyle={false}
-                                textInputProps={{ underlineColorAndroid: Styles.colors.gris }}
-                                Icon={() => {
-                                    return <Icon name='keyboard-arrow-down' type='material' size={30} color={Styles.colors.gris} />;
-                                }}
-                            />}
+                            :
+                            (Platform.OS === 'ios' ?
+                                <View>
+                                    <Text></Text>
+                                    <DropDownPicker
+                                        key={race}
+                                        placeholder={{}}
+                                        items={races}
+                                        onValueChange={setRace}
+                                        value={race}
+                                        style={{
+                                            inputAndroid: { backgroundColor: 'transparent', margin: -1 },
+                                            iconContainer: { top: -5 },
+                                        }}
+                                        useNativeAndroidPickerStyle={false}
+                                        textInputProps={{ underlineColorAndroid: Styles.colors.gris }}
+                                        Icon={() => {
+                                            return <Icon name='keyboard-arrow-down' type='material' size={30} color={Styles.colors.gris} />;
+                                        }}
+                                    />
+                                </View>
+                                :
+                                <DropDownPicker
+                                    key={race}
+                                    placeholder={{}}
+                                    items={races}
+                                    onValueChange={setRace}
+                                    value={race}
+                                    style={{
+                                        inputAndroid: { backgroundColor: 'transparent', margin: -1 },
+                                        iconContainer: { top: 5 }
+                                    }}
+                                    useNativeAndroidPickerStyle={false}
+                                    textInputProps={{ underlineColorAndroid: Styles.colors.gris }}
+                                    Icon={() => {
+                                        return <Icon name='keyboard-arrow-down' type='material' size={30} color={Styles.colors.gris} />;
+                                    }}
+                                />)
+                        }
                         <View style={{ width: (Constant.DEVICE.WIDTH / 2) - 15, alignItems: "flex-end" }}>
                             <Text style={[Styles.textOpaque, { margin: -10, fontSize: 12, color: Styles.colors.error }]}>{SignUpErrors ? SignUpErrors.race : null}</Text>
                         </View>

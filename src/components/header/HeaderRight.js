@@ -21,13 +21,15 @@ import { Styles } from '../../assets/css/Styles';
 import Constant from '../../utils/constants';
 import { fetchPOST, addToCart, listVetsPurcharse, removeToCart } from '../../utils/functions';
 import OverlayCart from './OverlayCart';
+import HeaderLeft from './HeaderLeft';
 
 let SIZE = 30;
 let ITEMS_BUYED_HEADER = {};
 
-const HeaderRight = ({ navigation, userRoot, hideCount }) => {
+const HeaderRight = ({ navigation, userRoot, hideCount, setUpdateAddress }) => {
     const [value, setValue] = useState(-1);
     const [visible, setVisible] = useState(false);
+    const [temp, setTemp] = useState(false);
 
     const _loadStorage = async () => {
         let count = 0;
@@ -56,6 +58,7 @@ const HeaderRight = ({ navigation, userRoot, hideCount }) => {
 
     const showCart = () => {
         setVisible(true);
+        setUpdateAddress(true);
     }
 
     return (
@@ -94,9 +97,10 @@ const HeaderRight = ({ navigation, userRoot, hideCount }) => {
                     />
                 </View>
             }
-            <OverlayCart navigation={navigation} visible={visible} backdropPress={() => { setVisible(false); _loadStorage(); }} userRoot={userRoot} />
+            <OverlayCart navigation={navigation} visible={visible} backdropPress={() => { setVisible(false); _loadStorage();  setUpdateAddress(false);  }} userRoot={userRoot} />
+           {/* <HeaderLeft navigation={navigation} userRoot={userRoot} /> */}
         </View>
     );
 };
 
-export default memo(HeaderRight);
+export default (HeaderRight);

@@ -54,6 +54,7 @@ class LocalNotificationService {
 
     showNotification = (id, title, message, data = {}, options = {}) => {
         PushNotification.localNotification({
+            channelId: "com.petman",
             /* Android Only Properties */
             ...this.buildAndroidNotification(id, title, message, data, options),
             /* iOS and Android properties */
@@ -66,6 +67,13 @@ class LocalNotificationService {
             userInteraction: false, // BOOLEAN: If the notification was opened by the user from the notification area or not
             foreground: true
         });
+
+        PushNotification.createChannel({
+            channelId: "com.petman", // (required)
+            channelName: "com.petman", // (required)
+         },
+         (created) => console.log(`CreateChannel returned '${created}'`)
+         );
     }
 
     buildAndroidNotification = (id, title, message, data = {}, options = {}) => {

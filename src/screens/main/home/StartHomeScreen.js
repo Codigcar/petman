@@ -30,6 +30,8 @@ export default function StartHomeScreen({ navigation, route }) {
     // console.log('StartHomeScreen: ' + JSON.stringify(navigation) + ' || ' + JSON.stringify(route))
     // console.log('PET: ' + Constant.GLOBAL.PET.ID)
 
+    const [updateAddress, setUpdateAddress] = useState(false);
+
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: false
@@ -51,10 +53,10 @@ export default function StartHomeScreen({ navigation, route }) {
                             headerTitle: null,
                             headerStyle: Styles.headerBarStyle,
                             headerLeft: () => (
-                                <HeaderLeft navigation={navigation} userRoot={route.params.userRoot} />
+                                <HeaderLeft navigation={navigation} userRoot={route.params.userRoot} setUpdateAddress={setUpdateAddress} />
                             ),
                             headerRight: () => (
-                                <HeaderRight navigation={navigation} userRoot={route.params.userRoot} />
+                                <HeaderRight navigation={navigation} userRoot={route.params.userRoot}  setUpdateAddress={setUpdateAddress} />
                             ),
                         }}
                     />
@@ -127,21 +129,23 @@ function HomeScreen({ navigation, route }) {
     );
 
     const renderCarouselItem = ({ item, index }) => {
+        // console.log('SV_NombreServicio: ', item.SV_NombreServicio);
+        // console.log('SV_IdServicio: ', item.SV_IdServicio);
         const { SV_IdServicio, SV_NombreServicio, SV_RutaImagen } = item;
         return (
             <TouchableOpacity
-                activeOpacity={.8}
-                style={{ height: 120, width: 80, alignItems: "center", justifyContent: "center" }}
+                // activeOpacity={.8}
+                style={{ height: 120, width: 80, alignItems: "center", justifyContent: "center"}}
                 onPress={() => {
-                    console.log(item[index]);
+                    console.log('item presionado carousel: ',item[index]);
+                    console.log('SV_NombreServicio: ',SV_NombreServicio);
                     navigation.navigate('BathScreen', { userRoot: route.params.userRoot, SV_IdServicio, SV_NombreServicio });
                 }}
             >
-                <View style={{ height: 100, width: 80, alignItems: "center" }}>
+                <View style={{ height: 100, width: 80, alignItems: "center"}}>
                     <Avatar
                         size={60}
                         rounded
-                        containerStyle={{ elevation: 5, shadowOpacity: 5 }}
                         source={{ uri: SV_RutaImagen }}
                     />
                     <Text style={[Styles.textOpaque, { fontSize: 12, textAlign: "center", width: 80, height: 40, marginTop: 8 }]}>{SV_NombreServicio}</Text>
@@ -178,12 +182,12 @@ function HomeScreen({ navigation, route }) {
             ListHeaderComponent={
                 <View>
                     <View>
-                        <View style={{ height: 60, margin: 5, marginTop: 15, marginBottom: 0 }}>
+                        <View style={{ height: 60, margin: 5, marginTop: 15, marginBottom: 0, paddingBottom: 0}}>
                             <Input
                                 placeholder='Buscar veterinaria'
-                                leftIcon={{ type: 'ionicon', name: 'search-outline', color: Styles.colors.gris, style: { padding: 10 } }}
-                                inputContainerStyle={{ borderWidth: 1, borderColor: Styles.colors.gris, borderRadius: 10 }}
-                                inputStyle={Styles.textOpaque}
+                                leftIcon={{ type: 'ionicon', name: 'search-outline', color: Styles.colors.gris, style: { paddingHorizontal:10}, size:20 }}
+                                inputContainerStyle={{ borderWidth: 1, borderColor: Styles.colors.gris, borderRadius: 10, padding:0 }}
+                                inputStyle={[Styles.textOpaque, {fontSize:16, padding:0, margin:0}]}
                                 errorStyle={{ height: 0 }}
                                 onChangeText={setValue}
                                 // autoCorrect={false}
@@ -202,6 +206,7 @@ function HomeScreen({ navigation, route }) {
                                 enableMomentum={false}
                                 enableSnap={true}
                                 slideStyle={{ alignItems: "center" }}
+                                removeClippedSubviews = {false}
                             />
                         </View>
                         <Divider style={{ height: 10, backgroundColor: Styles.colors.defaultBackground }} />

@@ -95,7 +95,7 @@ export default function ContactScreen({ navigation, route }) {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Styles.colors.background }}>
             <View style={{ flex: 1, flexDirection: "column", justifyContent: "space-between" }}>
-                <View style={styles.cardHeader} >
+                <View style={styles.cardHeader } >
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <View>
                             <Text style={styles.textHeader}>{item.TituloMensaje}</Text>

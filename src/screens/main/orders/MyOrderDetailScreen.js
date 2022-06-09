@@ -22,7 +22,7 @@ import { fetchPOST, listVetsPurcharse } from '../../../utils/functions';
 
 const Stack = createStackNavigator();
 
-export default function MyOrderDetailScreen({ navigation, route }) {
+export default function MyOrderDetailScreen({ navigation, route, userRoot }) {
     // console.log('MyOrderDetailScreen: ' + JSON.stringify(route));
     const [sales, setSales] = useState([]);
 
@@ -46,6 +46,7 @@ export default function MyOrderDetailScreen({ navigation, route }) {
             }, function (response) {
                 if (response.CodigoMensaje == 100) {
                     addToCard(response.Data);
+                    console.log("Hoooola: "+ JSON.stringify(response.Data));
                 } else {
                     Alert.alert('', response.RespuestaMensaje);
                 }
@@ -70,13 +71,14 @@ export default function MyOrderDetailScreen({ navigation, route }) {
                 "MS_NombreFotoMascota": product.MS_NombreFotoMascota,
                 "VTA_Celular": product.VTA_Celular,
                 "VTA_MensajeCelular": product.VTA_MensajeCelular,
-                "VTA_ImagenCelular": product.VTA_ImagenCelular
+                "VTA_ImagenCelular": product.VTA_ImagenCelular,
+                "SV_TipoServicio": product.SV_TipoServicio
             }
         });
         let VETS_PURCHARSE = _addVetsPurcharse(ITEMS_BUYED);
         setSales(VETS_PURCHARSE);
 
-        console.log("VETS_PURCHARSE: " + JSON.stringify(VETS_PURCHARSE));
+        // console.log("VETS_PURCHARSE: " + JSON.stringify(VETS_PURCHARSE));
     };
 
     const _addVetsPurcharse = (ITEMS_BUYED) => {
@@ -117,35 +119,70 @@ export default function MyOrderDetailScreen({ navigation, route }) {
     const ProductDetails = (props) => {
         const products = props.items;
         // console.log('ITEMS: ' + JSON.stringify(products));
+        const condi = false;
         return (
             <FlatList
                 data={products}
                 keyExtractor={(item, index) => item + index}
                 renderItem={({ item }) =>
-                    <View style={{}}>
-                        <View style={{ height: 60, justifyContent: "space-between", padding: 10 }}>
-                            <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                <Avatar
-                                    rounded
-                                    size={25}
-                                    source={{ uri: item.MS_NombreFotoMascota }}
-                                    containerStyle={{ borderWidth: 1, borderColor: Styles.colors.secondary }}
-                                />
-                                <Text style={[Styles.textBoldOpaque, { fontSize: 12, marginLeft: 5 }]}>{item.PR_NombreProducto}</Text>
-                            </View>
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingTop: 5 }}>
-                                <Text style={[Styles.textLightGrey, { fontSize: 12 }]}>Cantidad: {item.DV_CantidadProducto}</Text>
-                                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                                    <Text style={[Styles.textBoldOpaque, { fontSize: 12 }]}>S/{(item.PR_MontoTotal).toFixed(2)}</Text>
+                    <View>
+                        {
+                            (item.SV_TipoServicio === 1) ?
+                                <View>
+                                    <View style={{ height: 60, justifyContent: "space-between", padding: 10 }}>
+                                        <View style={{ flexDirection: "row", alignItems: "center"}}>
+                                            <Text style={[Styles.textBoldOpaque, { fontSize: 12, marginRight: 7 }]}>{item.PR_NombreProducto}</Text>
+                                            
+                                                
+                                            <Avatar
+                                            rounded
+                                            size={25}
+                                            source={{ uri: item.MS_NombreFotoMascota }}
+                                            containerStyle={{ borderWidth: 1, borderColor: Styles.colors.secondary }}
+                                            />
+                                            
+                                        </View>
+                                        <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingTop: 5}}>
+                                            <Text style={[Styles.textLightGrey, { fontSize: 12 }]}>Cantidad: {item.DV_CantidadProducto}</Text>
+                                            <View style={{ justifyContent: "center", alignItems: "center" }}>
+                                                <Text style={[Styles.textBoldOpaque, { fontSize: 12 }]}>S/{(item.PR_MontoTotal).toFixed(2)}</Text>
+                                            </View>
+                                        </View>
+                                    </View>
+                                    <Divider />
+                                </View> 
+                                :
+                                <View>
+                                    <View>
+                                        {/* <View style={{ height: 30, justifyContent: "space-between", padding: 10 }}> */}
+                                            <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingTop: 15, padding: 10}}>
+                                                <Text style={[Styles.textBoldOpaque, { fontSize: 12, marginRight: 7 }]}>{item.PR_NombreProducto}</Text>
+                                                <View style={{ justifyContent: "center", alignItems: "center" }}>
+                                                    <Text style={[Styles.textBoldOpaque, { fontSize: 12 }]}>S/{(item.PR_MontoTotal).toFixed(2)}</Text>
+                                                </View>
+                                            </View>
+                                        {/* </View> */}
+                                        <Divider />
+                                    </View> 
                                 </View>
-                            </View>
-                        </View>
-                        <Divider />
+                        }
                     </View>
                 }
+                // SV_tiposervicio: 1 o 2
+                // 1: servicio normales
+                // 2: movilidad
+
+                // movilidad
+                // quitar sub-total
+                // solo mostrar total
             />
         );
     }
+
+    {/* <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
+        <Text style={[Styles.textBoldOpaque, { fontSize: 16, color: Styles.colors.secondary }]}>TOTAL</Text>
+        <Text style={[Styles.textBoldOpaque, { fontSize: 16, color: Styles.colors.secondary }]}>S/{route.params.sale.V_MontoTotal}</Text>
+    </View> */}
 
     return (
         <FlatList
@@ -156,12 +193,10 @@ export default function MyOrderDetailScreen({ navigation, route }) {
                     {sales.length <= 0
                         ? <></>
                         :
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
-                            <Text style={[Styles.textBoldOpaque, { fontSize: 16, color: Styles.colors.secondary }]}>TOTAL</Text>
-                            <Text style={[Styles.textBoldOpaque, { fontSize: 16, color: Styles.colors.secondary }]}>S/{route.params.sale.V_MontoTotal}</Text>
-                        </View>
+                        <></>
                     }
                 </View>
+                
             }
             keyExtractor={(item, index) => item + index}
             renderItem={({ item }) =>
@@ -184,11 +219,12 @@ export default function MyOrderDetailScreen({ navigation, route }) {
 
                     <View style={{ marginTop: -10 }}>
                         <ProductDetails items={item.vet_prods} />
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
-                            <Text style={[Styles.textBoldOpaque, { fontSize: 14, color: Styles.colors.secondary }]}>SUB-TOTAL</Text>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", paddingLeft: 10, paddingRight: 10, marginTop: 15 }}>
+                            <Text style={[Styles.textBoldOpaque, { fontSize: 14, color: Styles.colors.secondary }]}>TOTAL</Text>
                             <Text style={[Styles.textBoldOpaque, { fontSize: 14, color: Styles.colors.secondary }]}>S/{item.montoSubTotal.toFixed(2)}</Text>
                         </View>
                     </View>
+                    
                 </View>
             }
         />

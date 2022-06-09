@@ -11,7 +11,8 @@ class MapPlaceSearch extends React.Component {
         return (
             <GooglePlacesAutocomplete
                 placeholder='Ingresar una nueva dirección'
-                minLength={5} // minimum length of text to search
+                textInputProps = {{placeholderTextColor: Styles.colors.gris}}
+                minLength={1} // minimum length of text to search
                 // autoFocus={true}
                 // returnKeyType={'search'} // Can be left out for default return key 
                 // listViewDisplayed={false}    // true/false/undefined
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         height: 60,
-        backgroundColor: Styles.colors.primary
+        backgroundColor: Styles.colors.primary,
     },
     textInput: {
         color: Styles.colors.gris,
@@ -66,11 +67,15 @@ const styles = StyleSheet.create({
         borderRadius: 0,
         borderColor: Styles.colors.lightGrey,
         fontFamily: Styles.fontAldrichRegular,
-        fontSize: 16
+        fontSize: 16,
     },
     listView: {
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        backgroundColor: 'white',
+        borderBottomLeftRadius:10,
+        borderBottomRightRadius:10,
+
     },
     row: {
         backgroundColor: '#FFFFFF',
@@ -81,7 +86,7 @@ const styles = StyleSheet.create({
     loader: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        height: 20,
+        height: 120,
     },
     description: {},
     separator: {

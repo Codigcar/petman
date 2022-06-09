@@ -14,16 +14,18 @@ export default function PetSelectScreen({ navigation, route }) {
     // console.log('PetSelectScreen: ' + JSON.stringify(navigation) + ' || ' + JSON.stringify(route))
     let SIZE = 80;
     const [items, setItems] = useState([]);
+    const [updateAddress, setUpdateAddress] = useState(false);
+
 
     useLayoutEffect(() => {
         navigation.setOptions({
             headerTitle: null,
             headerStyle: Styles.headerBarStyle,
             headerLeft: () => (
-                <HeaderLeft navigation={navigation} userRoot={route.params.userRoot} />
+                <HeaderLeft navigation={navigation} userRoot={route.params.userRoot} setUpdateAddress={setUpdateAddress} />
             ),
             headerRight: () => (
-                <HeaderRight navigation={navigation} userRoot={route.params.userRoot} />
+                <HeaderRight navigation={navigation} userRoot={route.params.userRoot} setUpdateAddress={setUpdateAddress} />
             ),
         });
     }, [navigation]);

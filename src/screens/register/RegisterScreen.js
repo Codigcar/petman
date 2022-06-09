@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { KeyboardAvoidingView, Linking, Text, Pressable, View, Image, ScrollView, ImageBackground, Alert } from 'react-native';
+import { KeyboardAvoidingView, Linking, Text, Pressable, View, Image, ScrollView, ImageBackground, Alert, TouchableOpacity } from 'react-native';
 import { Background, Button, Input } from '../../components';
 import Constant from '../../utils/constants';
 import { Styles } from '../../assets/css/Styles';
@@ -7,6 +7,8 @@ import { AuthContext } from '../../components/authContext';
 import CheckBox from '@react-native-community/checkbox';
 import { validateAll } from 'indicative/validator';
 import { fetchPOST } from '../../utils/functions';
+import { Platform } from 'react-native';
+
 
 const RegisterScreen = ({ navigation, route }) => {
   console.log('RegisterScreen: ' + JSON.stringify(route))
@@ -24,7 +26,7 @@ const RegisterScreen = ({ navigation, route }) => {
 
   const [acceptTerms, setAcceptTerms] = useState(false);
 
-  const { signUpPet } = useContext(AuthContext);
+  const { signUpPet, signIn } = useContext(AuthContext);
 
   useEffect(() => {
     fetchPOST(Constant.URI.PRIVACITY_POLICIES, {}, function (response) {
@@ -70,7 +72,8 @@ const RegisterScreen = ({ navigation, route }) => {
           "i_ccl_apepaterno": lastname,
           "i_ccl_apematerno": motherLastname,
           "i_ccl_email": email,
-          "i_ccl_celular": cellphone
+          "i_ccl_celular": cellphone,
+          "i_usu_devicetoken": route.params.deviceToken
         }, function (response) {
           if (response.CodigoMensaje == 100) {
             console.log("DATA: " + JSON.stringify(data) + "-" + acceptTerms);
@@ -182,7 +185,9 @@ const RegisterScreen = ({ navigation, route }) => {
                     value={acceptTerms}
                     onValueChange={(newValue) => setAcceptTerms(newValue)}
                   />
-                  <Text style={[Styles.textOpaque, { fontSize: 14 }]}>He leído y acepto la </Text>
+                  {
+                    Platform.OS ? <Text style={[Styles.textOpaque, { fontSize: 14, marginLeft:12 }]}>He leído y acepto la </Text> : <Text style={[Styles.textOpaque, { fontSize: 14 }]}>He leído y acepto la </Text>
+                  }
                   <Pressable
                     onPress={() => {
                       Linking.openURL(policies).then().catch(() => {
@@ -200,6 +205,12 @@ const RegisterScreen = ({ navigation, route }) => {
                     title="siguiente"
                     onPress={() => handleSignUp()}
                   />
+                  
+                  <TouchableOpacity onPress={() => signIn()}>
+                    {
+                      Platform.OS ? <Text style={[Styles.textOpaque, { textAlign: 'center', fontSize: 14, marginBottom: 45 }]} >Iniciar sesión</Text> : <Text style={[Styles.textOpaque, { textAlign: 'center', fontSize: 14, marginBottom: 15 }]} >Iniciar sesión</Text>
+                    }
+                  </TouchableOpacity>
                 </View>
               </View>
 

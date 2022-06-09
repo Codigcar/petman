@@ -37,7 +37,7 @@ export const Styles = {
             borderColor: color_black,
             borderWidth: 3,
             backgroundColor: color_primary,
-            borderRadius: 15,
+            borderRadius: 15
         },
         secondary: {
             marginTop: 10,

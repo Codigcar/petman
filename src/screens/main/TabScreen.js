@@ -13,12 +13,14 @@ import { createStackNavigator } from '@react-navigation/stack'; import {
   SafeAreaView
 } from 'react-native';
 import { AuthContext } from '../../components/authContext';
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Icon } from 'react-native-elements';
 import { StartHomeScreen, PetsHomeScreen, ConnectHomeScreen, MyOrdersHomeScreen, BathScreen, ProductScreen, PaymentScreen, SettingsHomeScreen } from '../main';
 import { Styles } from '../../assets/css/Styles';
 import Constant from '../../utils/constants';
+import { Button, HeaderLeft, HeaderRight, Divider, InputText } from '../../components';
 import { fetchPOST } from '../../utils/functions';
+import StartHomeAdminScreen from '../admi/StartHomeAdminScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -26,22 +28,42 @@ const sizeBottomIcon = 30;
 
 export default function TabScreen({ navigation, route }) {
 
+  // const [isVeterinary, setIsVeterinary] = useState(false);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false
     });
+    console.log('TabScreenTabScreen: ', route);
   }, [navigation]);
+
+/*   useEffect(() => {
+    if(route.params.userRoot.PF_IdPerfil === 1 ){
+      setIsVeterinary(true);
+    }
+  }, []) */
 
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="HomeScreen"
-        component={HomeScreen}
-        initialParams={{ userRoot: route.params.userRoot }}
-      />
+        component={route.params.userRoot.PF_IdPerfil === 1 ? StartHomeAdminScreen : HomeScreen}
+        initialParams={route.params.userRoot.PF_IdPerfil === 1 ? { userRoot: route.params.userRoot, veterinary: route.params.userRoot.CCL_IdCliente } : { userRoot: route.params.userRoot }}
+        options={{
+          headerTitle: null,
+          headerStyle: Styles.headerBarStyle,
+          headerLeft: () => (
+            <HeaderLeft navigation={navigation} userRoot={route.params.userRoot} setUpdateAddress={false} />
+          ),
+
+        }} />
       <Stack.Screen
         name="ProductScreen"
         component={ProductScreen}
+      />
+      <Stack.Screen
+        name="StartHomeAdminScreen"
+        component={StartHomeAdminScreen}
       />
       <Stack.Screen
         name="BathScreen"
@@ -136,23 +158,6 @@ function HomeScreen({ navigation, route }) {
           }
         }}
       />
-      {/* <Tab.Screen //TODO: Comentado por el momento.
-        name="ConnectHomeScreen"
-        component={ConnectHomeScreen}
-        initialParams={{ userRoot: route.params.userRoot, pet: route.params.pet }}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <Image
-                style={{ width: 30, height: 30 }}
-                source={focused
-                  ? Constant.GLOBAL.IMAGES.ICON_FOOTER_CONNECT
-                  : Constant.GLOBAL.IMAGES.ICON_FOOTER_CONNECT_INACTIVE}
-              />
-            );
-          }
-        }}
-      /> */}
       <Tab.Screen
         name="MyOrdersHomeScreen"
         component={MyOrdersHomeScreen}

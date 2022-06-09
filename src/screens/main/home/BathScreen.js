@@ -14,13 +14,13 @@ import {
     FlatList,
     SafeAreaView
 } from 'react-native';
-import { Icon, Input, Rating, AirbnbRating, SearchBar } from 'react-native-elements';
+import { Icon, Input, Rating, AirbnbRating, SearchBar, Avatar } from 'react-native-elements';
 import 'react-native-gesture-handler';
 import { Styles } from '../../../assets/css/Styles';
 import Constant from '../../../utils/constants';
 import { fetchPOST } from '../../../utils/functions';
 import _ from "lodash";
-import { Divider, Carousel, Button, HeaderLeft, HeaderRight, RadioForm, RadioButtonInput, RadioButtonLabel } from '../../../components';
+import { Divider, Carousel, Button, HeaderLeft, HeaderRight, RadioForm, RadioButtonInput, RadioButtonLabel, HeaderBackLeft } from '../../../components';
 
 let SIZE = 105;
 
@@ -37,6 +37,10 @@ export default function BathScreen({ navigation, route }) {
             headerTitleStyle: Styles.headerTitleStyle,
             headerTitleAlign: 'center',
             headerBackTitleVisible: false,
+            headerLeft: () => (
+                <HeaderBackLeft navigation={navigation} >
+                </HeaderBackLeft>
+            ),
             headerRight: () => (
                 <HeaderRight navigation={navigation} userRoot={route.params.userRoot} />
             ),
@@ -97,17 +101,17 @@ export default function BathScreen({ navigation, route }) {
                             <TouchableOpacity
                                 activeOpacity={.8}
                                 onPress={() => {
-                                    console.log(item);
+                                    console.log('BathScreen item:  ',item);
                                     navigation.navigate('ProductScreen', { userRoot: route.params.userRoot, veterinary: item });
                                 }}
                             >
-                                <View style={{ flexDirection: "row" }}>
-                                    <View style={{ width: SIZE + 10, height: SIZE + 30, alignItems: "center", justifyContent: "center" }} >
-                                        <Image style={{ width: SIZE, height: SIZE, resizeMode: "cover" }}
-                                            source={{ uri: item.VTA_NombreFoto }}
+                                <View style={{ flexDirection: "row" /* , height: SIZE, width: Constant.DEVICE.WIDTH, margin: 15, marginBottom: 15 */}}>
+                                    <View style={{ width: SIZE + 10, height: SIZE + 30, alignItems: "center", justifyContent: "center", marginLeft:17 }} >
+                                        <Image style={{ width: SIZE, height: SIZE, resizeMode: "cover", borderRadius: 10, marginTop: 5 }}
+                                            source={{ uri: item.PR_NombreFoto }}
                                         />
                                     </View>
-                                    <View style={{ justifyContent: "space-between", margin: 5, width: Constant.DEVICE.WIDTH - (SIZE + 30), paddingRight: 10 }}>
+                                    <View style={{ justifyContent: "space-between", margin: 5, width: Constant.DEVICE.WIDTH - (SIZE + 30), paddingRight: 30}}>
                                         <View style={{ marginTop: 10 }}>
                                             <Text style={[Styles.textBoldOpaque, { fontSize: 18, marginBottom: 5 }]}>{item.PR_NombreProducto}</Text>
                                             <Text style={[Styles.textBoldOpaque, { fontSize: 14, color: Styles.colors.secondary }]}>S/ {item.PR_MontoTotal === null ? 0.00 : item.PR_MontoTotal.toFixed(2)}</Text>
